@@ -1,24 +1,35 @@
 import React from 'react';
-import './MainPage.css';
 import styled from 'styled-components';
-import Question from '../../components/question/Question';
+import './MainPage.css';
 import GlobalStyle from '../../theme/GlobalStyles';
+import Logo from '../../components/logo/Logo';
+import MenuButton from '../../components/buttons/MenuButton';
 
-const StyledButton = styled.button`
-  background-color: white;
-  border: 1px solid black;
-  padding: 10px 20px;
+const StyledButtonWrapper = styled.div`
+  /* display: inline-block; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* height: 400px; */
+  /* justify-content: space-between; */
 `;
 
 function MainPage() {
   return (
     <div>
       <GlobalStyle />
-      <h1>Jest</h1>
-      <hr />
-      <StyledButton>Button Styled</StyledButton>
-      <h2>przegląd pytań </h2>
-      <Question />
+      <Logo />
+      <StyledButtonWrapper>
+        <MenuButton>Baza Pytań</MenuButton>
+        <MenuButton>Testy</MenuButton>
+        <MenuButton>Statystyki</MenuButton>
+      </StyledButtonWrapper>
     </div>
   );
 }

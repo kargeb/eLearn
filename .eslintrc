@@ -5,5 +5,13 @@
   },
   "globals": {
     "document": true
+  },
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      0,
+      {
+        "devDependencies": [".storybook/**", "stories/**"]
+      }
+    ]
   }
 }
