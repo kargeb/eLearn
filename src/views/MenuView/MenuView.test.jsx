@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import MainPage from './MainPage';
+import MenuView from './MenuView';
 
 test('renders learn react link', () => {
-  const { getByText } = render(<MainPage />);
+  const { getByText } = render(<MenuView />);
   const linkElement = getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });

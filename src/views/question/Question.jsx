@@ -1,16 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Logo from '../../components/logo/Logo';
+// import data from '../../assets/dummyData/questions';
 
-const Question = () => (
-  <div>
-    <Link to="/">
-      <Logo />
-    </Link>
-    <h3>No no coś tam z JS pytanie jakieś</h3>
-    <code>Odpowiedź cos cos jakas cos dana nadana</code>
-    <hr />
-  </div>
-);
+// const first = data[0];
+
+const Question = ({ item }) => {
+  const { question, answer, topic } = item;
+
+  return (
+    <div>
+      <h2>{question}</h2>
+      <h3>{answer}</h3>
+      <code>{topic}</code>
+    </div>
+  );
+};
 
 export default Question;

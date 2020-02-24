@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import './MainPage.css';
+import './MenuView.css';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/Logo';
 import MenuButton from '../../components/buttons/MenuButton';
@@ -15,7 +15,7 @@ const StyledButtonWrapper = styled.div`
   align-items: center;
 `;
 
-function MainPage() {
+function MenuView() {
   return (
     <div>
       <Link to="/">
@@ -36,4 +36,4 @@ function MainPage() {
   );
 }
 
-export default MainPage;
+export default MenuView;

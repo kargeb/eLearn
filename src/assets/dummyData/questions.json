@@ -1,0 +1,16 @@
+[
+  {
+    "question": "pierwsze pytanie",
+    "answer": "pierwsza odpowiedz",
+    "topic": "react",
+    "source": "samuraj",
+    "id": 1
+  },
+  {
+    "question": "drugie pytanie",
+    "answer": "druga odpowiedz",
+    "topic": "react",
+    "source": "samuraj",
+    "id": 2
+  }
+]
