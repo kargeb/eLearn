@@ -19,5 +19,12 @@
     "topic": "JS",
     "source": "samuraj",
     "id": 3
+  },
+  {
+    "question": "efekt polecenia: typeof function",
+    "answer": "function - mimo, że jest to object, nie jest to błąd tylko zamierzony efekt",
+    "topic": "GIT",
+    "source": "samuraj",
+    "id": 4
   }
 ]
