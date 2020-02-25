@@ -1,16 +1,23 @@
 [
   {
-    "question": "pierwsze pytanie",
-    "answer": "pierwsza odpowiedz",
-    "topic": "react",
+    "question": "jak otworzyc pusta strone w chrome",
+    "answer": "about:blank",
+    "topic": "HTML",
     "source": "samuraj",
     "id": 1
   },
   {
-    "question": "drugie pytanie",
-    "answer": "druga odpowiedz",
-    "topic": "react",
+    "question": "efekt poelcenia: typeof ",
+    "answer": "object - oficjlany błąd JS, NULL jest typu NULL",
+    "topic": "JS",
     "source": "samuraj",
     "id": 2
+  },
+  {
+    "question": "efekt polecenia: typeof function",
+    "answer": "function - mimo, że jest to object, nie jest to błąd tylko zamierzony efekt",
+    "topic": "JS",
+    "source": "samuraj",
+    "id": 3
   }
 ]

@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import './MenuView.css';
 import { Link } from 'react-router-dom';
-import Logo from '../../components/logo/Logo';
-import MenuButton from '../../components/buttons/MenuButton';
+import Logo from '../../components/atoms/logo/Logo';
+import MenuButton from '../../components/atoms/buttons/MenuButton';
 
 const StyledButtonWrapper = styled.div`
   position: absolute;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Question from '../question/Question';
 import MenuView from '../MenuView/MenuView';
 import GlobalStyle from '../../theme/GlobalStyles';
 import QuestionsView from '../QuestionsView/QuestionsView';

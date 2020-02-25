@@ -8,5 +8,9 @@ export default {
 };
 
 export const hello = () => (
-  <MenuButton onClick={action('clicked')}>Hello Button</MenuButton>
+  <>
+    <MenuButton onClick={action('clicked')}>Hello Button</MenuButton>
+    <br />
+    <MenuButton small>Hello Button</MenuButton>
+  </>
 );

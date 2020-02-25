@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const MenuButton = styled.button`
   /* text-align: center; */
@@ -13,10 +13,16 @@ const MenuButton = styled.button`
   line-height: 70px;
   border: 2px solid #000000;
   background: #ffffff;
-  border-radius: 16.7086px;
+  /* border-radius: 16.7086px; */
   outline: none;
   letter-spacing: 1px;
   transition: letter-spacing 0.1s;
+
+  ${({ small }) =>
+    small &&
+    css`
+      width: 450px;
+    `}
 
   &:hover {
     color: #3de123;
