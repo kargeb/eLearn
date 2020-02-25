@@ -16,9 +16,9 @@ const StyledQuestion = styled.div`
   width: 40%;
   padding: 10px;
   font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 12px;
+  /* font-style: 600; */
+  font-weight: 500;
+  font-size: 18px;
   line-height: 36px;
 `;
 
@@ -26,8 +26,13 @@ const StyledAnswer = styled.div`
   position: relative;
   background-color: rgba(196, 196, 196, 0.2);
   width: 60%;
-  font-size: 14px;
+  /* font-family: 'Open Sans'; */
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
   padding: 10px;
+  line-height: 26px;
 `;
 
 const StyledNumberFiled = styled.div`
@@ -72,10 +77,10 @@ const Question = ({ item }) => {
     <StyledWrapper>
       <StyledQuestion>
         <StyledNumberFiled>{id}</StyledNumberFiled>
-        <h2>{question}</h2>
+        <span>{question}</span>
       </StyledQuestion>
       <StyledAnswer>
-        <strong>{answer}</strong>
+        <span>{answer}</span>
 
         <StyledCategoryFiled topic={topic}>
           <code>{topic}</code>
