@@ -8,6 +8,7 @@ const StyledWrapper = styled.div`
   width: 80vw;
   min-height: 50px;
   display: flex;
+  /* filter: blur(8px); */
 `;
 
 const StyledQuestion = styled.div`

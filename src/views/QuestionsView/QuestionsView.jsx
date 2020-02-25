@@ -5,6 +5,7 @@ import Logo from '../../components/atoms/logo/Logo';
 import data from '../../assets/dummyData/questions';
 import Question from '../../components/molecules/Question/Question';
 import AddQuestionButton from '../../components/atoms/buttons/AddQuestionButton';
+import NewQuestionForm from '../../components/organisms/NewQuestionForm/NewQuestionForm';
 
 const StyledAddQuestionButton = styled.div`
   position: fixed;
@@ -25,6 +26,7 @@ const QuestionsView = () => (
     <StyledAddQuestionButton>
       <AddQuestionButton>Dodaj nowe</AddQuestionButton>
     </StyledAddQuestionButton>
+    <NewQuestionForm />
   </div>
 );
 
