@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const StyledWrapper = styled.div`
   display: flex;
+  margin: 10px;
 `;
 
 const StyledLabel = styled.label`
@@ -16,10 +17,11 @@ const StyledLabel = styled.label`
 const StyledInput = styled.textarea`
   width: 1000px;
   height: 150px;
+  color: black;
+  background-color: rgba(196, 196, 196, 0.2);
 
   &:focus {
-    background-color: #d2f6c1;
-    opacity: 0.5;
+    background-color: rgba(210, 246, 193, 0.5);
   }
 `;
 

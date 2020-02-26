@@ -15,7 +15,7 @@ const StyledAddQuestionButton = styled.div`
 `;
 
 const QuestionsView = () => {
-  const [state, setState] = useState(false);
+  const [state, setState] = useState(true);
 
   const handleAddQuestionButton = () => {
     setState(!state);
