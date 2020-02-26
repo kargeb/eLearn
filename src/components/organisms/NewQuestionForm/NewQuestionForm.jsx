@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Input from '../../atoms/input/Input';
 import Select from '../../atoms/select/Select';
+import Button from '../../atoms/buttons/Button';
+import Icon from '../../atoms/icons/Icon';
+import cancelIcon from '../../../assets/images/CancelIcon.svg';
+import confirmIcon from '../../../assets/images/ConfirmIcon.svg';
 
 const StyledBackground = styled.div`
   position: absolute;
@@ -17,6 +21,9 @@ const StyledBackground = styled.div`
 `;
 
 const StyledFormWrapper = styled.div`
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   position: absolute;
   z-index: 20;
   top: 170px;
@@ -26,9 +33,7 @@ const StyledFormWrapper = styled.div`
   padding: 10px;
   /* text-align: center; */
   display: flex;
-  flex-direction: column;
   background-color: white;
-  align-items: center;
   /* justify-content: center; */
   border: 4px solid #ccc;
 `;
@@ -36,6 +41,34 @@ const StyledFormWrapper = styled.div`
 const StyledSelectsWrapper = styled.div`
   display: flex;
   justify-content: space-around;
+`;
+
+const StyledButtonWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  /* margin-left: 25%; */
+  /* background-color: blue; */
+  /* justify-content: space-around; */
+`;
+
+const StyledAddButton = styled(Button)`
+  background-color: rgba(255, 247, 45, 0.62);
+  width: 150px;
+  margin-left: calc(50% - 75px);
+`;
+
+const StyledCancelButton = styled(Button)`
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  transform: scale(0.7) translateY(10px);
+  margin-left: 100px;
+
+  &:hover,
+  &:focus {
+    background-color: black;
+    transform: scale(0.9) translateY(10px);
+  }
 `;
 
 const NewQuestionForm = ({ handleClick }) => {
@@ -65,9 +98,16 @@ const NewQuestionForm = ({ handleClick }) => {
           <Select category="Kategoria" options={categoryOptions} />
           <Select category="Temat" options={topicOptions} />
         </StyledSelectsWrapper>
-        <button onClick={handleClick} type="button">
-          Close
-        </button>
+        <StyledButtonWrapper>
+          <StyledAddButton onClick={handleClick} type="button">
+            Dodaj
+            <Icon horizontalGap icon={confirmIcon} />
+          </StyledAddButton>
+          <StyledCancelButton onClick={handleClick} type="button">
+            Porzuć
+            <Icon horizontalGap icon={cancelIcon} />
+          </StyledCancelButton>
+        </StyledButtonWrapper>
       </StyledFormWrapper>
     </>
   );

@@ -4,8 +4,10 @@ import styled from 'styled-components';
 import Logo from '../../components/atoms/logo/Logo';
 import data from '../../assets/dummyData/questions';
 import Question from '../../components/molecules/Question/Question';
-import AddButton from '../../components/atoms/buttons/AddButton';
+import Button from '../../components/atoms/buttons/Button';
 import NewQuestionForm from '../../components/organisms/NewQuestionForm/NewQuestionForm';
+import Icon from '../../components/atoms/icons/Icon';
+import plusIcon from '../../assets/images/PlusIcon.svg';
 
 const StyledAddQuestionButton = styled.div`
   position: fixed;
@@ -15,7 +17,7 @@ const StyledAddQuestionButton = styled.div`
 `;
 
 const QuestionsView = () => {
-  const [state, setState] = useState(true);
+  const [state, setState] = useState(false);
 
   const handleAddQuestionButton = () => {
     setState(!state);
@@ -33,13 +35,14 @@ const QuestionsView = () => {
           <Question key={question.id} item={question} />
         ))}
       </ul>
-      <StyledAddQuestionButton>
-        {!state && (
-          <AddButton handleClick={handleAddQuestionButton}>
-            Dodaj nowe
-          </AddButton>
-        )}
-      </StyledAddQuestionButton>
+      {!state && (
+        <StyledAddQuestionButton>
+          <Button onClick={handleAddQuestionButton}>
+            Dodaj
+            <Icon horizontalGap icon={plusIcon} />
+          </Button>
+        </StyledAddQuestionButton>
+      )}
       {state && <NewQuestionForm handleClick={handleAddQuestionButton} />}
     </div>
   );
