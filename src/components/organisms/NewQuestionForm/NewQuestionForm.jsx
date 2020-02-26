@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Input from '../../atoms/input/Input';
 
 const StyledBackground = styled.div`
   position: absolute;
@@ -26,9 +27,16 @@ const StyledFormWrapper = styled.div`
   filter: drop-shadow();
 `;
 
-const NewQuestionForm = () => (
-  <>{/* <StyledBackground />
-    <StyledFormWrapper>co</StyledFormWrapper> */}</>
+const NewQuestionForm = ({ handleClick }) => (
+  <>
+    <StyledBackground />
+    <StyledFormWrapper>
+      <Input />
+      <button onClick={handleClick} type="button">
+        Close
+      </button>
+    </StyledFormWrapper>
+  </>
 );
 
 export default NewQuestionForm;

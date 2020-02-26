@@ -19,7 +19,7 @@ const StyledButton = styled.button`
 
   &:hover {
     /* color: #3de123; */
-    background-color: rgba(196, 196, 196, 0.2);
+    background-color: #f3f3f3;
     /* color: #fff72d; */
     cursor: pointer;
     transform: scale(1.1);
@@ -36,11 +36,11 @@ const StyledAddIcon = styled.div`
   line-height: 22px;
 `;
 
-const AddQuestionButton = ({ children }) => (
-  <StyledButton>
+const AddButton = ({ children, handleClick }) => (
+  <StyledButton onClick={handleClick}>
     {children}
     <StyledAddIcon>+</StyledAddIcon>
   </StyledButton>
 );
 
-export default AddQuestionButton;
+export default AddButton;

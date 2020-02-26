@@ -1,7 +1,7 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import MenuButton from './MenuButton';
-import AddQuestionButton from './AddQuestionButton';
+import AddButton from './AddButton';
 
 export default {
   title: 'Atoms',
@@ -13,6 +13,6 @@ export const Buttons = () => (
     <MenuButton onClick={action('clicked')}>Hello Button</MenuButton>
     <br />
     <br />
-    <AddQuestionButton>Dodaj nowe</AddQuestionButton>
+    <AddButton>Dodaj nowe</AddButton>
   </>
 );
