@@ -13,14 +13,20 @@ const StyledButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
+`;
+
+const StyledHeader = styled.header`
+  margin-top: 20px;
+  text-align: center;
 `;
 
 function MenuView() {
   return (
     <div>
-      <Link to="/">
+      <StyledHeader>
         <Logo />
-      </Link>
+      </StyledHeader>
       <StyledButtonWrapper>
         <Link to="/questions">
           <MenuButton>Baza Pytań</MenuButton>

@@ -13,17 +13,20 @@ const StyledAddQuestionButton = styled.div`
   position: fixed;
   bottom: 100px;
   right: 100px;
-  /* z-index: 100; */
 `;
 
 const QuestionsView = () => {
   const [state, setState] = useState(false);
+  const [questions, setQuestion] = useState(data);
 
   const handleAddQuestionButton = () => {
     setState(!state);
   };
 
-  const questions = data;
+  const handleNewQuestion = newQuestion => {
+    newQuestion.id = questions.length + 1;
+    setQuestion(prevState => [...prevState, newQuestion]);
+  };
 
   return (
     <div>
@@ -43,7 +46,12 @@ const QuestionsView = () => {
           </Button>
         </StyledAddQuestionButton>
       )}
-      {state && <NewQuestionForm handleClick={handleAddQuestionButton} />}
+      {state && (
+        <NewQuestionForm
+          handleClick={handleAddQuestionButton}
+          handleNewQuestion={handleNewQuestion}
+        />
+      )}
     </div>
   );
 };

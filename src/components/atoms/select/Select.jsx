@@ -28,15 +28,17 @@ const StyledOption = styled.option`
   background-color: rgba(196, 196, 196, 0.2);
 `;
 
-const Select = ({ category, options }) => {
+const Select = ({ category, options, gotValue, setValue }) => {
   return (
     <StyledWrapper>
       <StyledLabel htmlFor={category}>{category}:</StyledLabel>
-      <StyledSelect id={category}>
+      <StyledSelect
+        id={category}
+        value={gotValue}
+        onChange={e => setValue(e.target.value)}
+      >
         {options.map(option => (
-          <StyledOption key={option} value="JS">
-            {option}
-          </StyledOption>
+          <StyledOption key={option}>{option}</StyledOption>
         ))}
       </StyledSelect>
     </StyledWrapper>
@@ -44,3 +46,7 @@ const Select = ({ category, options }) => {
 };
 
 export default Select;
+
+{
+  /* <select value={this.state.value} onChange={this.handleChange}> */
+}
