@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Input from '../../atoms/input/Input';
@@ -65,16 +65,37 @@ const StyledCancelButton = styled(Button)`
   }
 `;
 
+const StyledPrompt = styled.span`
+  position: absolute;
+  color: red;
+  font-size: 25px;
+  font-weight: bold;
+  bottom: 5%;
+  left: 5%;
+`;
+
 const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
-  const [category, setCategory] = useState('Wybierz');
-  const [subject, setSubject] = useState('Wybierz');
+  const [category, setCategory] = useState('');
+  const [subject, setSubject] = useState('');
+  const [prompVisible, setPromptVisibility] = useState(false);
 
   const categoryOptions = ['JavaScript', 'HTML', 'GIT', 'React'];
   const topicOptions = ['Funkcje', 'Tablice', 'Hooki', 'Komendy'];
 
+  const resetStates = () => {
+    setQuestion('');
+    setAnswer('');
+    setCategory('');
+    setSubject('');
+  };
+
+  const questionInput = useRef(null);
+
   const sendQuestion = () => {
+    setPromptVisibility(false);
+
     const newQuestion = {
       question,
       answer,
@@ -83,8 +104,13 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
       id: null
     };
 
-    handleNewQuestion(newQuestion);
-    toggleFormVisibility();
+    if (question && answer && category && subject) {
+      handleNewQuestion(newQuestion);
+      // questionInput.current.focus();
+      resetStates();
+    } else {
+      setPromptVisibility(true);
+    }
   };
 
   return (
@@ -92,6 +118,7 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
       <StyledBackground />
       <StyledFormWrapper>
         <Input
+          ref={questionInput}
           label="Pytanie: "
           name="questionInput"
           gotValue={question}
@@ -127,6 +154,7 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
             <Icon horizontalGap icon={cancelIcon} />
           </StyledCancelButton>
         </StyledButtonWrapper>
+        {prompVisible && <StyledPrompt>Są puste pola!</StyledPrompt>}
       </StyledFormWrapper>
     </>
   );
