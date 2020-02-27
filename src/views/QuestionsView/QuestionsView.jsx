@@ -16,16 +16,16 @@ const StyledAddQuestionButton = styled.div`
 `;
 
 const QuestionsView = () => {
-  const [state, setState] = useState(false);
+  const [isFormVisible, setFormVisibility] = useState(false);
   const [questions, setQuestion] = useState(data);
 
-  const handleAddQuestionButton = () => {
-    setState(!state);
+  const toggleFormVisibility = () => {
+    setFormVisibility(!isFormVisible);
   };
 
   const handleNewQuestion = newQuestion => {
-    newQuestion.id = questions.length + 1;
-    setQuestion(prevState => [...prevState, newQuestion]);
+    const newQuestionWithId = { ...newQuestion, id: questions.length + 1 };
+    setQuestion(prevState => [...prevState, newQuestionWithId]);
   };
 
   return (
@@ -38,17 +38,17 @@ const QuestionsView = () => {
           <Question key={question.id} item={question} />
         ))}
       </ul>
-      {!state && (
+      {!isFormVisible && (
         <StyledAddQuestionButton>
-          <Button onClick={handleAddQuestionButton}>
+          <Button onClick={toggleFormVisibility}>
             Dodaj
             <Icon horizontalGap icon={plusIcon} />
           </Button>
         </StyledAddQuestionButton>
       )}
-      {state && (
+      {isFormVisible && (
         <NewQuestionForm
-          handleClick={handleAddQuestionButton}
+          toggleFormVisibility={toggleFormVisibility}
           handleNewQuestion={handleNewQuestion}
         />
       )}

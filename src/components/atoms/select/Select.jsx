@@ -46,7 +46,3 @@ const Select = ({ category, options, gotValue, setValue }) => {
 };
 
 export default Select;
-
-{
-  /* <select value={this.state.value} onChange={this.handleChange}> */
-}

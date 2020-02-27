@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 const StyledWrapper = styled.div`
@@ -91,4 +92,20 @@ const Question = ({ item }) => {
   );
 };
 
+Question.propTypes = {
+  item: PropTypes.shape({
+    question: PropTypes.string.isRequired,
+    answer: PropTypes.string.isRequired,
+    topic: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired
+  }).isRequired
+};
+
 export default Question;
+
+// item: PropTypes.exact({
+//   question: PropTypes.string.isRequired,
+//   answer: PropTypes.string.isRequired,
+//   topic: PropTypes.string.isRequired,
+//   id: PropTypes.number.isRequired
+// })

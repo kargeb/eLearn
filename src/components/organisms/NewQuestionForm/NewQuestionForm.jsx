@@ -64,7 +64,7 @@ const StyledCancelButton = styled(Button)`
   }
 `;
 
-const NewQuestionForm = ({ handleClick, handleNewQuestion }) => {
+const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
   const [question, setQuestionValue] = useState('');
   const [answer, setAnswerValue] = useState('');
   const [topic, setCategoryValue] = useState('');
@@ -73,11 +73,17 @@ const NewQuestionForm = ({ handleClick, handleNewQuestion }) => {
   const categoryOptions = ['JavaScript', 'HTML', 'GIT', 'React'];
   const topicOptions = ['Funkcje', 'Tablice', 'Hooki', 'Komendy'];
 
-  const newQuestion = {
-    question,
-    answer,
-    topic,
-    topicValue
+  const sendQuestion = () => {
+    const newQuestion = {
+      question,
+      answer,
+      topic,
+      topicValue,
+      id: null
+    };
+
+    handleNewQuestion(newQuestion);
+    toggleFormVisibility();
   };
 
   return (
@@ -111,17 +117,11 @@ const NewQuestionForm = ({ handleClick, handleNewQuestion }) => {
           />
         </StyledSelectsWrapper>
         <StyledButtonWrapper>
-          <StyledAddButton
-            onClick={() => {
-              handleNewQuestion(newQuestion);
-              handleClick();
-            }}
-            type="button"
-          >
+          <StyledAddButton onClick={sendQuestion} type="button">
             Dodaj
             <Icon horizontalGap icon={confirmIcon} />
           </StyledAddButton>
-          <StyledCancelButton onClick={handleClick} type="button">
+          <StyledCancelButton onClick={toggleFormVisibility} type="button">
             Porzuć
             <Icon horizontalGap icon={cancelIcon} />
           </StyledCancelButton>
