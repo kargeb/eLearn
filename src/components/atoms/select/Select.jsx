@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const StyledWrapper = styled.div`
@@ -37,12 +38,27 @@ const Select = ({ category, options, gotValue, setValue }) => {
         value={gotValue}
         onChange={e => setValue(e.target.value)}
       >
+        <StyledOption disabled hidden>
+          Wybierz
+        </StyledOption>
         {options.map(option => (
           <StyledOption key={option}>{option}</StyledOption>
         ))}
       </StyledSelect>
     </StyledWrapper>
   );
+};
+
+Select.propTypes = {
+  category: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  gotValue: PropTypes.string,
+  setValue: PropTypes.func
+};
+
+Select.defaultProps = {
+  gotValue: 'HTML',
+  setValue: null
 };
 
 export default Select;

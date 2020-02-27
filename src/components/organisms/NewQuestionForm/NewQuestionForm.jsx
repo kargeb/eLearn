@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Input from '../../atoms/input/Input';
 import Select from '../../atoms/select/Select';
@@ -67,8 +68,8 @@ const StyledCancelButton = styled(Button)`
 const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
   const [question, setQuestionValue] = useState('');
   const [answer, setAnswerValue] = useState('');
-  const [topic, setCategoryValue] = useState('');
-  const [topicValue, setTopicValue] = useState('');
+  const [topic, setCategoryValue] = useState('Wybierz');
+  const [topicValue, setTopicValue] = useState('Wybierz');
 
   const categoryOptions = ['JavaScript', 'HTML', 'GIT', 'React'];
   const topicOptions = ['Funkcje', 'Tablice', 'Hooki', 'Komendy'];
@@ -129,6 +130,11 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
       </StyledFormWrapper>
     </>
   );
+};
+
+NewQuestionForm.propTypes = {
+  toggleFormVisibility: PropTypes.func.isRequired,
+  handleNewQuestion: PropTypes.func.isRequired
 };
 
 export default NewQuestionForm;
