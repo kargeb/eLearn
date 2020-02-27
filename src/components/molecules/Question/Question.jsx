@@ -52,11 +52,12 @@ const StyledNumberFiled = styled.div`
 
 const StyledCategoryFiled = styled.div`
   position: absolute;
+  top: 0;
+  right: 0;
   width: 50px;
   height: 29px;
-  border: 1px solid #ccc;
   color: ${props => {
-    switch (props.topic) {
+    switch (props.category) {
       case 'HTML':
         return 'red';
       case 'JS':
@@ -65,15 +66,38 @@ const StyledCategoryFiled = styled.div`
         return 'black';
     }
   }};
-  top: 0;
-  right: 0;
-  text-align: center;
   font-weight: bold;
+  border: 1px solid #ccc;
+  text-align: center;
   font-size: 16px;
 `;
 
+const StyledSubjectFiled = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  min-width: 50px;
+  height: 29px;
+  font-weight: bold;
+  /* border: 1px solid #ccc; */
+  text-align: center;
+  font-size: 12px;
+`;
+
+const StyledSourceFiled = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 75%;
+  min-width: 50px;
+  height: 29px;
+  /* font-weight: bold; */
+  border: 1px solid #ccc;
+  text-align: center;
+  font-size: 12px;
+`;
+
 const Question = ({ item }) => {
-  const { question, answer, topic, id } = item;
+  const { question, answer, category, id, subject, source } = item;
 
   return (
     <StyledWrapper>
@@ -84,9 +108,15 @@ const Question = ({ item }) => {
       <StyledAnswer>
         <span>{answer}</span>
 
-        <StyledCategoryFiled topic={topic}>
-          <code>{topic}</code>
+        <StyledCategoryFiled category={category}>
+          <code>{category}</code>
         </StyledCategoryFiled>
+        <StyledSubjectFiled>
+          <span>{subject}</span>
+        </StyledSubjectFiled>
+        <StyledSourceFiled>
+          <span>{source}</span>
+        </StyledSourceFiled>
       </StyledAnswer>
     </StyledWrapper>
   );
@@ -96,8 +126,10 @@ Question.propTypes = {
   item: PropTypes.shape({
     question: PropTypes.string.isRequired,
     answer: PropTypes.string.isRequired,
-    topic: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired
+    category: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    subject: PropTypes.string.isRequired,
+    source: PropTypes.string.isRequired
   }).isRequired
 };
 
@@ -106,6 +138,6 @@ export default Question;
 // item: PropTypes.exact({
 //   question: PropTypes.string.isRequired,
 //   answer: PropTypes.string.isRequired,
-//   topic: PropTypes.string.isRequired,
+//   category: PropTypes.string.isRequired,
 //   id: PropTypes.number.isRequired
 // })

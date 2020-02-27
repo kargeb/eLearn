@@ -66,10 +66,10 @@ const StyledCancelButton = styled(Button)`
 `;
 
 const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
-  const [question, setQuestionValue] = useState('');
-  const [answer, setAnswerValue] = useState('');
-  const [topic, setCategoryValue] = useState('Wybierz');
-  const [topicValue, setTopicValue] = useState('Wybierz');
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [category, setCategory] = useState('Wybierz');
+  const [subject, setSubject] = useState('Wybierz');
 
   const categoryOptions = ['JavaScript', 'HTML', 'GIT', 'React'];
   const topicOptions = ['Funkcje', 'Tablice', 'Hooki', 'Komendy'];
@@ -78,8 +78,8 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
     const newQuestion = {
       question,
       answer,
-      topic,
-      topicValue,
+      category,
+      subject,
       id: null
     };
 
@@ -95,26 +95,26 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
           label="Pytanie: "
           name="questionInput"
           gotValue={question}
-          setValue={setQuestionValue}
+          setValue={setQuestion}
         />
         <Input
           label="Odpowiedź: "
           name="answerInput"
           gotValue={answer}
-          setValue={setAnswerValue}
+          setValue={setAnswer}
         />
         <StyledSelectsWrapper>
           <Select
             category="Kategoria"
             options={categoryOptions}
-            gotValue={topic}
-            setValue={setCategoryValue}
+            gotValue={category}
+            setValue={setCategory}
           />
           <Select
             category="Temat"
             options={topicOptions}
-            gotValue={topicValue}
-            setValue={setTopicValue}
+            gotValue={subject}
+            setValue={setSubject}
           />
         </StyledSelectsWrapper>
         <StyledButtonWrapper>

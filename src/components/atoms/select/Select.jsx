@@ -57,7 +57,7 @@ Select.propTypes = {
 };
 
 Select.defaultProps = {
-  gotValue: 'HTML',
+  gotValue: '',
   setValue: null
 };
 
