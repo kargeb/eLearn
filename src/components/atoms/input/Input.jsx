@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const StyledWrapper = styled.div`
@@ -39,6 +40,18 @@ const Input = ({ label, name, gotValue, setValue, refProp }) => {
       />
     </StyledWrapper>
   );
+};
+
+Input.propTypes = {
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  gotValue: PropTypes.string.isRequired,
+  setValue: PropTypes.func.isRequired,
+  refProp: PropTypes.objectOf(PropTypes.shape())
+};
+
+Input.defaultProps = {
+  refProp: null
 };
 
 export default Input;

@@ -5,15 +5,15 @@
     "category": "HTML",
     "subject": "Browser",
     "source": "samuraj",
-    "id": 1
+    "id": 1582808702000
   },
   {
-    "question": "efekt poelcenia: typeof ",
+    "question": "efekt poelcenia: typeof null",
     "answer": "object - oficjlany błąd JS, NULL jest typu NULL",
     "category": "JS",
     "subject": "Data types",
     "source": "samuraj",
-    "id": 2
+    "id": 1582808703000
   },
   {
     "question": "efekt polecenia: typeof function",
@@ -21,7 +21,7 @@
     "category": "JS",
     "subject": "Data types",
     "source": "samuraj",
-    "id": 3
+    "id": 1582808704000
   },
   {
     "question": "efekt polecenia: typeof function",
@@ -29,6 +29,6 @@
     "category": "GIT",
     "subject": "Commends",
     "source": "samuraj",
-    "id": 4
+    "id": 1582808705000
   }
 ]

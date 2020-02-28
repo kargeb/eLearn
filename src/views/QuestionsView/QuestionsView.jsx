@@ -24,8 +24,7 @@ const QuestionsView = () => {
   };
 
   const handleNewQuestion = newQuestion => {
-    const newQuestionWithId = { ...newQuestion, id: questions.length + 1 };
-    setQuestion(prevState => [...prevState, newQuestionWithId]);
+    setQuestion(prevState => [...prevState, newQuestion]);
   };
 
   return (
@@ -34,8 +33,8 @@ const QuestionsView = () => {
         <Logo small />
       </Link>
       <ul>
-        {questions.map(question => (
-          <Question key={question.id} item={question} />
+        {questions.map((question, index) => (
+          <Question key={question.id} index={index} item={question} />
         ))}
       </ul>
       {!isFormVisible && (

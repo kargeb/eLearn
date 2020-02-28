@@ -14,6 +14,7 @@ const StyledWrapper = styled.div`
 
 const StyledQuestion = styled.div`
   display: flex;
+  white-space: pre-wrap;
   background-color: rgba(85, 255, 5, 0.21);
   width: 40%;
   padding: 10px;
@@ -26,6 +27,7 @@ const StyledQuestion = styled.div`
 
 const StyledAnswer = styled.div`
   position: relative;
+  white-space: pre-wrap;
   background-color: rgba(196, 196, 196, 0.2);
   width: 60%;
   /* font-family: 'Open Sans'; */
@@ -96,13 +98,32 @@ const StyledSourceFiled = styled.div`
   font-size: 12px;
 `;
 
-const Question = ({ item }) => {
+const StyledDateFiled = styled.div`
+  position: absolute;
+  top: 0;
+  left: 75%;
+  min-width: 50px;
+  height: 29px;
+  /* font-weight: bold; */
+  border: 1px solid #ccc;
+  text-align: center;
+  font-style: italic;
+  font-size: 12px;
+`;
+
+const getDatefromId = id => {
+  const date = new Date(id);
+
+  return date.toLocaleDateString();
+};
+
+const Question = ({ item, index }) => {
   const { question, answer, category, id, subject, source } = item;
 
   return (
     <StyledWrapper>
       <StyledQuestion>
-        <StyledNumberFiled>{id}</StyledNumberFiled>
+        <StyledNumberFiled>{index + 1}</StyledNumberFiled>
         <span>{question}</span>
       </StyledQuestion>
       <StyledAnswer>
@@ -117,6 +138,9 @@ const Question = ({ item }) => {
         <StyledSourceFiled>
           <span>{source}</span>
         </StyledSourceFiled>
+        <StyledDateFiled>
+          <span>{getDatefromId(id)}</span>
+        </StyledDateFiled>
       </StyledAnswer>
     </StyledWrapper>
   );
@@ -129,8 +153,9 @@ Question.propTypes = {
     category: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     subject: PropTypes.string.isRequired,
-    source: PropTypes.string.isRequired
-  }).isRequired
+    source: PropTypes.string
+  }).isRequired,
+  index: PropTypes.number.isRequired
 };
 
 export default Question;

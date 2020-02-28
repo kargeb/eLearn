@@ -20,10 +20,10 @@ const StyledBackground = styled.div`
 `;
 
 const StyledFormWrapper = styled.div`
+  position: absolute;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  position: absolute;
   z-index: 20;
   top: 170px;
   left: 15%;
@@ -79,16 +79,18 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
   const [answer, setAnswer] = useState('');
   const [category, setCategory] = useState('');
   const [subject, setSubject] = useState('');
+  const [source, setSource] = useState('');
   const [prompVisible, setPromptVisibility] = useState(false);
 
   const categoryOptions = ['JavaScript', 'HTML', 'GIT', 'React'];
-  const topicOptions = ['Funkcje', 'Tablice', 'Hooki', 'Komendy'];
+  const topicOptions = ['Funkcje', 'Tablice', 'Hooki', 'Komendy', 'Other'];
+  const sourceOptions = ['Samuraj', 'ModernJS', 'Roman', 'Doc', 'Other'];
 
   const resetStates = () => {
     setQuestion('');
     setAnswer('');
-    setCategory('');
-    setSubject('');
+    // setCategory('');   disabled due to stay chosen in next questions
+    // setSubject('');
   };
 
   const inputRef = useRef();
@@ -105,10 +107,11 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
       answer,
       category,
       subject,
-      id: null
+      source,
+      id: +new Date() // date as number for example: 1582808704000
     };
 
-    if (question && answer && category && subject) {
+    if (question && answer && category && subject && source) {
       handleNewQuestion(newQuestion);
       resetStates();
       inputRef.current.focus();
@@ -146,6 +149,12 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
             options={topicOptions}
             gotValue={subject}
             setValue={setSubject}
+          />
+          <Select
+            category="Źródło"
+            options={sourceOptions}
+            gotValue={source}
+            setValue={setSource}
           />
         </StyledSelectsWrapper>
         <StyledButtonWrapper>
