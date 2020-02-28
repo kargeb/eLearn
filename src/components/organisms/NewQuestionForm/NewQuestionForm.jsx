@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Input from '../../atoms/input/Input';
@@ -91,7 +91,11 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
     setSubject('');
   };
 
-  const questionInput = useRef(null);
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const sendQuestion = () => {
     setPromptVisibility(false);
@@ -106,8 +110,8 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
 
     if (question && answer && category && subject) {
       handleNewQuestion(newQuestion);
-      // questionInput.current.focus();
       resetStates();
+      inputRef.current.focus();
     } else {
       setPromptVisibility(true);
     }
@@ -118,7 +122,7 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
       <StyledBackground />
       <StyledFormWrapper>
         <Input
-          ref={questionInput}
+          refProp={inputRef}
           label="Pytanie: "
           name="questionInput"
           gotValue={question}

@@ -25,11 +25,12 @@ const StyledInput = styled.textarea`
   }
 `;
 
-const Input = ({ label, name, gotValue, setValue }) => {
+const Input = ({ label, name, gotValue, setValue, refProp }) => {
   return (
     <StyledWrapper>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
       <StyledInput
+        ref={refProp}
         id={name}
         type="text"
         name={name}

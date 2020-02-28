@@ -34,6 +34,7 @@ const Select = ({ category, options, gotValue, setValue }) => {
     <StyledWrapper>
       <StyledLabel htmlFor={category}>{category}:</StyledLabel>
       <StyledSelect
+        tabIndex="-1"
         id={category}
         value={gotValue}
         onChange={e => setValue(e.target.value)}
