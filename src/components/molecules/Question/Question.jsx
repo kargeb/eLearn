@@ -117,7 +117,7 @@ const getDatefromId = id => {
   return date.toLocaleDateString();
 };
 
-const Question = ({ item, index, removeQuestion, editQuestion }) => {
+const Question = ({ item, index, removeQuestion, turnOnEditMode }) => {
   const { question, answer, category, id, subject, source } = item;
 
   return (
@@ -130,7 +130,7 @@ const Question = ({ item, index, removeQuestion, editQuestion }) => {
         <button type="button" onClick={() => removeQuestion(id)}>
           Usuń
         </button>
-        <button type="button" onClick={() => editQuestion(id)}>
+        <button type="button" onClick={() => turnOnEditMode(id)}>
           Edytuj
         </button>
         <span>{answer}</span>

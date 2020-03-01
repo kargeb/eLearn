@@ -75,10 +75,11 @@ const StyledPrompt = styled.span`
 `;
 
 const NewQuestionForm = ({
-  edit,
+  editMode,
   toggleFormVisibility,
   addNewQuestion,
-  defaultQuestion
+  defaultQuestion,
+  editQuestion
 }) => {
   console.log(defaultQuestion.question);
   const [question, setQuestion] = useState(defaultQuestion.question);
@@ -125,15 +126,9 @@ const NewQuestionForm = ({
     }
   };
 
-  // const categoryOptions = ['JS', 'HTML', 'GIT', 'React'];
-  // const topicOptions = ['Funkcje', 'Tablice', 'Hooki', 'Komendy', 'Other'];
-  // const sourceOptions = ['Samuraj', 'ModernJS', 'Roman', 'Doc', 'Other'];
-
   const resetStates = () => {
     setQuestion('');
     setAnswer('');
-    // setCategory('');   commented due to stay chosen in next adding questions
-    // setSubject('');
   };
 
   const inputRef = useRef();
@@ -158,6 +153,26 @@ const NewQuestionForm = ({
       addNewQuestion(newQuestion);
       resetStates();
       inputRef.current.focus();
+    } else {
+      setEmptyFildsPrompt(true);
+    }
+  };
+
+  const sendEditedQuestion = id => {
+    setEmptyFildsPrompt(false);
+
+    const editedQuestion = {
+      question,
+      answer,
+      category,
+      subject,
+      source,
+      id
+    };
+
+    if (question && answer && category && subject && source) {
+      editQuestion(editedQuestion);
+      toggleFormVisibility();
     } else {
       setEmptyFildsPrompt(true);
     }
@@ -204,8 +219,11 @@ const NewQuestionForm = ({
           />
         </StyledSelectsWrapper>
         <StyledButtonWrapper>
-          {edit ? (
-            <StyledAddButton onClick={sendQuestion} type="button">
+          {editMode ? (
+            <StyledAddButton
+              onClick={() => sendEditedQuestion(defaultQuestion.id)}
+              type="button"
+            >
               Zapisz zmiany
               <Icon horizontalGap icon={confirmIcon} />
             </StyledAddButton>

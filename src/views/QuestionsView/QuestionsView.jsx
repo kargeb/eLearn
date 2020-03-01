@@ -18,7 +18,7 @@ const StyledAddQuestionButton = styled.div`
 const QuestionsView = () => {
   const [isFormVisible, setFormVisibility] = useState(false);
   const [questions, setQuestion] = useState(data);
-  const [edit, setEdit] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
 
   const toggleFormVisibility = () => {
@@ -29,15 +29,27 @@ const QuestionsView = () => {
     setQuestion(prevState => [...prevState, newQuestion]);
   };
 
+  const editQuestion = editedQuestion => {
+    const newQuestions = questions.map(question => {
+      if (question.id == editedQuestion.id) {
+        const edited = { ...editedQuestion };
+        return edited;
+      }
+      return question;
+    });
+
+    setQuestion(newQuestions);
+    setEditMode(false);
+  };
+
   const removeQuestion = id => {
     const newQuestions = questions.filter(question => question.id !== id);
     setQuestion([...newQuestions]);
   };
 
-  const editQuestion = id => {
-    setEdit(true);
+  const turnOnEditMode = id => {
+    setEditMode(true);
     const pointedQuestion = questions.filter(question => question.id == id);
-    console.log(pointedQuestion);
     setEditingQuestion(pointedQuestion[0]);
     toggleFormVisibility();
   };
@@ -52,7 +64,6 @@ const QuestionsView = () => {
 
   return (
     <div>
-      {console.log(editingQuestion)}
       <Link to="/">
         <Logo small />
       </Link>
@@ -63,7 +74,7 @@ const QuestionsView = () => {
             index={index}
             item={question}
             removeQuestion={removeQuestion}
-            editQuestion={editQuestion}
+            turnOnEditMode={turnOnEditMode}
           />
         ))}
       </ul>
@@ -77,10 +88,11 @@ const QuestionsView = () => {
       )}
       {isFormVisible && (
         <NewQuestionForm
-          edit={edit}
+          editMode={editMode}
           toggleFormVisibility={toggleFormVisibility}
           addNewQuestion={addNewQuestion}
-          defaultQuestion={edit ? editingQuestion : defaultQuestion}
+          defaultQuestion={editMode ? editingQuestion : defaultQuestion}
+          editQuestion={editQuestion}
         />
       )}
     </div>
