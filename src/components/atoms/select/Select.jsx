@@ -81,8 +81,7 @@ const Select = ({ category, options, gotValue, setValue, addOption }) => {
         value={gotValue}
         onChange={e => setValue(e.target.value)}
       >
-        {/* <StyledOption disabled hidden /> */}
-        {console.log(options)}
+        <StyledOption disabled hidden />
         {options.map(option => (
           <StyledOption key={option}>{option}</StyledOption>
         ))}

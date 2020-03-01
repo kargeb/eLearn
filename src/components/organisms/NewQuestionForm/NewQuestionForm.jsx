@@ -74,12 +74,18 @@ const StyledPrompt = styled.span`
   left: 5%;
 `;
 
-const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
-  const [question, setQuestion] = useState('');
-  const [answer, setAnswer] = useState('');
-  const [category, setCategory] = useState('');
-  const [subject, setSubject] = useState('');
-  const [source, setSource] = useState('');
+const NewQuestionForm = ({
+  edit,
+  toggleFormVisibility,
+  addNewQuestion,
+  defaultQuestion
+}) => {
+  console.log(defaultQuestion.question);
+  const [question, setQuestion] = useState(defaultQuestion.question);
+  const [answer, setAnswer] = useState(defaultQuestion.answer);
+  const [category, setCategory] = useState(defaultQuestion.category);
+  const [subject, setSubject] = useState(defaultQuestion.subject);
+  const [source, setSource] = useState(defaultQuestion.source);
   const [emptyFieldsPrompt, setEmptyFildsPrompt] = useState(false);
 
   const [categoryOptions, setCategoryOptions] = useState([
@@ -149,7 +155,7 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
     };
 
     if (question && answer && category && subject && source) {
-      handleNewQuestion(newQuestion);
+      addNewQuestion(newQuestion);
       resetStates();
       inputRef.current.focus();
     } else {
@@ -198,10 +204,17 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
           />
         </StyledSelectsWrapper>
         <StyledButtonWrapper>
-          <StyledAddButton onClick={sendQuestion} type="button">
-            Dodaj
-            <Icon horizontalGap icon={confirmIcon} />
-          </StyledAddButton>
+          {edit ? (
+            <StyledAddButton onClick={sendQuestion} type="button">
+              Zapisz zmiany
+              <Icon horizontalGap icon={confirmIcon} />
+            </StyledAddButton>
+          ) : (
+            <StyledAddButton onClick={sendQuestion} type="button">
+              Dodaj
+              <Icon horizontalGap icon={confirmIcon} />
+            </StyledAddButton>
+          )}
           <StyledCancelButton onClick={toggleFormVisibility} type="button">
             Porzuć
             <Icon horizontalGap icon={cancelIcon} />
@@ -215,7 +228,7 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
 
 NewQuestionForm.propTypes = {
   toggleFormVisibility: PropTypes.func.isRequired,
-  handleNewQuestion: PropTypes.func.isRequired
+  addNewQuestion: PropTypes.func.isRequired
 };
 
 export default NewQuestionForm;

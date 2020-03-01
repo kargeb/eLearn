@@ -117,7 +117,7 @@ const getDatefromId = id => {
   return date.toLocaleDateString();
 };
 
-const Question = ({ item, index }) => {
+const Question = ({ item, index, removeQuestion, editQuestion }) => {
   const { question, answer, category, id, subject, source } = item;
 
   return (
@@ -127,6 +127,12 @@ const Question = ({ item, index }) => {
         <span>{question}</span>
       </StyledQuestion>
       <StyledAnswer>
+        <button type="button" onClick={() => removeQuestion(id)}>
+          Usuń
+        </button>
+        <button type="button" onClick={() => editQuestion(id)}>
+          Edytuj
+        </button>
         <span>{answer}</span>
 
         <StyledCategoryFiled category={category}>

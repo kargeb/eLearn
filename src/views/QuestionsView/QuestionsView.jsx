@@ -18,23 +18,53 @@ const StyledAddQuestionButton = styled.div`
 const QuestionsView = () => {
   const [isFormVisible, setFormVisibility] = useState(false);
   const [questions, setQuestion] = useState(data);
+  const [edit, setEdit] = useState(false);
+  const [editingQuestion, setEditingQuestion] = useState('');
 
   const toggleFormVisibility = () => {
     setFormVisibility(!isFormVisible);
   };
 
-  const handleNewQuestion = newQuestion => {
+  const addNewQuestion = newQuestion => {
     setQuestion(prevState => [...prevState, newQuestion]);
+  };
+
+  const removeQuestion = id => {
+    const newQuestions = questions.filter(question => question.id !== id);
+    setQuestion([...newQuestions]);
+  };
+
+  const editQuestion = id => {
+    setEdit(true);
+    const pointedQuestion = questions.filter(question => question.id == id);
+    console.log(pointedQuestion);
+    setEditingQuestion(pointedQuestion[0]);
+    toggleFormVisibility();
+  };
+
+  const defaultQuestion = {
+    question: '',
+    answer: '',
+    category: '',
+    subject: '',
+    source: ''
   };
 
   return (
     <div>
+      {console.log(editingQuestion)}
       <Link to="/">
         <Logo small />
       </Link>
       <ul>
         {questions.map((question, index) => (
-          <Question key={question.id} index={index} item={question} />
+          <Question
+            key={question.id}
+            index={index}
+            item={question}
+            removeQuestion={removeQuestion}
+            editQuestion={editQuestion}
+          />
         ))}
       </ul>
       {!isFormVisible && (
@@ -47,8 +77,10 @@ const QuestionsView = () => {
       )}
       {isFormVisible && (
         <NewQuestionForm
+          edit={edit}
           toggleFormVisibility={toggleFormVisibility}
-          handleNewQuestion={handleNewQuestion}
+          addNewQuestion={addNewQuestion}
+          defaultQuestion={edit ? editingQuestion : defaultQuestion}
         />
       )}
     </div>
