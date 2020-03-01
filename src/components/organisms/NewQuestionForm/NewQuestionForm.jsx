@@ -80,16 +80,53 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
   const [category, setCategory] = useState('');
   const [subject, setSubject] = useState('');
   const [source, setSource] = useState('');
-  const [prompVisible, setPromptVisibility] = useState(false);
+  const [emptyFieldsPrompt, setEmptyFildsPrompt] = useState(false);
 
-  const categoryOptions = ['JavaScript', 'HTML', 'GIT', 'React'];
-  const topicOptions = ['Funkcje', 'Tablice', 'Hooki', 'Komendy', 'Other'];
-  const sourceOptions = ['Samuraj', 'ModernJS', 'Roman', 'Doc', 'Other'];
+  const [categoryOptions, setCategoryOptions] = useState([
+    'JS',
+    'HTML',
+    'GIT',
+    'React'
+  ]);
+  const [topicOptions, setTopicOptions] = useState([
+    'Funkcje',
+    'Tablice',
+    'Hooki',
+    'Komendy',
+    'Other'
+  ]);
+  const [sourceOptions, setSourceOptions] = useState([
+    'Samuraj',
+    'ModernJS',
+    'Roman',
+    'Doc',
+    'Other'
+  ]);
+
+  const addOption = (Category, newOption) => {
+    switch (Category) {
+      case 'Kategoria':
+        setCategoryOptions(prevState => [...prevState, newOption]);
+        break;
+      case 'Temat':
+        setTopicOptions(prevState => [...prevState, newOption]);
+        break;
+      case 'Źródło':
+        setSourceOptions(prevState => [...prevState, newOption]);
+        break;
+      default:
+        break;
+    }
+  };
+
+  // const categoryOptions = ['JS', 'HTML', 'GIT', 'React'];
+  // const topicOptions = ['Funkcje', 'Tablice', 'Hooki', 'Komendy', 'Other'];
+  // const sourceOptions = ['Samuraj', 'ModernJS', 'Roman', 'Doc', 'Other'];
 
   const resetStates = () => {
     setQuestion('');
     setAnswer('');
-    // setCategory('');   disabled due to stay chosen in next questions
+    // setCategory('');   commented due to stay chosen in next adding questions
     // setSubject('');
   };
 
@@ -100,7 +137,7 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
   }, []);
 
   const sendQuestion = () => {
-    setPromptVisibility(false);
+    setEmptyFildsPrompt(false);
 
     const newQuestion = {
       question,
@@ -116,7 +153,7 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
       resetStates();
       inputRef.current.focus();
     } else {
-      setPromptVisibility(true);
+      setEmptyFildsPrompt(true);
     }
   };
 
@@ -140,18 +177,21 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
         <StyledSelectsWrapper>
           <Select
             category="Kategoria"
+            addOption={addOption}
             options={categoryOptions}
             gotValue={category}
             setValue={setCategory}
           />
           <Select
             category="Temat"
+            addOption={addOption}
             options={topicOptions}
             gotValue={subject}
             setValue={setSubject}
           />
           <Select
             category="Źródło"
+            addOption={addOption}
             options={sourceOptions}
             gotValue={source}
             setValue={setSource}
@@ -167,7 +207,7 @@ const NewQuestionForm = ({ toggleFormVisibility, handleNewQuestion }) => {
             <Icon horizontalGap icon={cancelIcon} />
           </StyledCancelButton>
         </StyledButtonWrapper>
-        {prompVisible && <StyledPrompt>Są puste pola!</StyledPrompt>}
+        {emptyFieldsPrompt && <StyledPrompt>Są puste pola!</StyledPrompt>}
       </StyledFormWrapper>
     </>
   );
