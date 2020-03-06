@@ -9,7 +9,7 @@
   },
   {
     "question": "efekt poelcenia: typeof null",
-    "answer": "object - oficjlany błąd JS, NULL jest typu NULL",
+    "answer": "object - oficjlany błąd JSowy, NULL jest typu NULL",
     "category": "JS",
     "subject": "Data types",
     "source": "samuraj",
