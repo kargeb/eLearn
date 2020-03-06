@@ -81,7 +81,6 @@ const NewQuestionForm = ({
   defaultQuestion,
   editQuestion
 }) => {
-  console.log(defaultQuestion.question);
   const [question, setQuestion] = useState(defaultQuestion.question);
   const [answer, setAnswer] = useState(defaultQuestion.answer);
   const [category, setCategory] = useState(defaultQuestion.category);
