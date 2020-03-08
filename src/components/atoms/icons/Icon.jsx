@@ -13,6 +13,15 @@ const Icon = styled.div`
     css`
       margin-left: 10px;
     `}
+
+  ${({ select }) =>
+    select &&
+    css`
+      margin-top: 8px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    `}
 `;
 
 export default Icon;

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Icon from '../icons/Icon';
 import plusIcon from '../../../assets/images/PlusIcon.svg';
 import Input from '../input/Input';
+import Label from '../label/Label';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -11,26 +12,19 @@ const StyledWrapper = styled.div`
   /* background-color: blue; */
 `;
 
-const StyledLabel = styled.label`
-  width: 120px;
-  font-size: 20px;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  padding: 5px;
-  text-align: right;
-  padding-right: 20px;
-`;
-
 const StyledSelect = styled.select`
   width: 150px;
-  background-color: rgba(196, 196, 196, 0.2);
+  background-color: rgba(100, 196, 196, 0.2);
   height: 35px;
+
+  option {
+    background-color: rgba(196, 196, 196, 0.2);
+  }
 `;
 
-const StyledOption = styled.option`
-  background-color: rgba(196, 196, 196, 0.2);
-`;
+// const StyledOption = styled.option`
+//   background-color: rgba(196, 196, 196, 0.2);
+// `;
 
 const StyledIcon = styled(Icon)`
   margin-top: 8px;
@@ -74,26 +68,29 @@ const Select = ({ category, options, gotValue, setValue, addOption }) => {
 
   return (
     <StyledWrapper>
-      <StyledLabel htmlFor={category}>{category}:</StyledLabel>
+      <Label select htmlFor={category}>
+        {category}:
+      </Label>
       <StyledSelect
         tabIndex={gotValue ? '-1' : '0'}
         id={category}
         value={gotValue}
         onChange={e => setValue(e.target.value)}
       >
-        <StyledOption disabled hidden />
+        <option disabled hidden />
         {options.map(option => (
-          <StyledOption key={option}>{option}</StyledOption>
+          <option key={option}>{option}</option>
         ))}
       </StyledSelect>
-      <StyledIcon
+      <Icon
+        select
         horizontalGap
         icon={plusIcon}
         onClick={toggleNewCategoryForm}
       />
       {isNewCategoryFormVisible && (
         <StyledAddSelectForm>
-          <StyledLabel>{category}</StyledLabel>
+          <Label select>{category}</Label>
           <StyledList>
             {options.map(option => (
               <li key={option}>{option}</li>

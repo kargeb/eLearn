@@ -147,30 +147,6 @@ const NewQuestionForm = ({
     setAnswer('');
   };
 
-  const StyledWrapper = styled.div`
-    display: flex;
-    margin: 10px;
-  `;
-
-  const StyledLabel = styled.label`
-    width: 120px;
-    font-size: 20px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-  `;
-
-  const StyledInput = styled.textarea`
-    width: 1000px;
-    height: 150px;
-    color: black;
-    background-color: rgba(196, 196, 196, 0.2);
-
-    &:focus {
-      background-color: rgba(210, 246, 193, 0.5);
-    }
-  `;
-
   const sendQuestion = () => {
     setEmptyFildsPrompt(false);
 
@@ -211,8 +187,6 @@ const NewQuestionForm = ({
       setEmptyFildsPrompt(true);
     }
   };
-
-  console.log('jestem w fulnkcji tesz');
 
   return (
     <>

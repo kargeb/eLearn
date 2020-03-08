@@ -36,9 +36,9 @@ const useInput = (label, defaultState) => {
 
   const HookInput = () => {
     return (
-      <StyledWrapper>
-        <StyledLabel htmlFor={id}>{label}</StyledLabel>
-        <StyledInput
+      <div>
+        <label htmlFor={id}>{label}</label>
+        <textarea
           //   ref={refProp}
           id={id}
           type="text"
@@ -46,7 +46,7 @@ const useInput = (label, defaultState) => {
           value={state}
           onChange={e => setState(e.target.value)}
         />
-      </StyledWrapper>
+      </div>
     );
   };
 
