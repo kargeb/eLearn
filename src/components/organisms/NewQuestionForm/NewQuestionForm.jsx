@@ -7,6 +7,17 @@ import Button from '../../atoms/buttons/Button';
 import Icon from '../../atoms/icons/Icon';
 import cancelIcon from '../../../assets/images/CancelIcon.svg';
 import confirmIcon from '../../../assets/images/ConfirmIcon.svg';
+import Label from '../../atoms/label/Label';
+import TextArea from '../../atoms/input/TextArea';
+
+// import useInput from '../../atoms/input/useInput';
+
+const StyledInputWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  width: 100%;
+`;
 
 const StyledBackground = styled.div`
   position: absolute;
@@ -109,6 +120,12 @@ const NewQuestionForm = ({
     'Other'
   ]);
 
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   const addOption = (Category, newOption) => {
     switch (Category) {
       case 'Kategoria':
@@ -130,11 +147,29 @@ const NewQuestionForm = ({
     setAnswer('');
   };
 
-  const inputRef = useRef();
+  const StyledWrapper = styled.div`
+    display: flex;
+    margin: 10px;
+  `;
 
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+  const StyledLabel = styled.label`
+    width: 120px;
+    font-size: 20px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+  `;
+
+  const StyledInput = styled.textarea`
+    width: 1000px;
+    height: 150px;
+    color: black;
+    background-color: rgba(196, 196, 196, 0.2);
+
+    &:focus {
+      background-color: rgba(210, 246, 193, 0.5);
+    }
+  `;
 
   const sendQuestion = () => {
     setEmptyFildsPrompt(false);
@@ -177,23 +212,43 @@ const NewQuestionForm = ({
     }
   };
 
+  console.log('jestem w fulnkcji tesz');
+
   return (
     <>
+      {console.log('2323')}
       <StyledBackground />
       <StyledFormWrapper>
-        <Input
+        <StyledInputWrapper>
+          <Label htmlFor="question">Pytanie:</Label>
+          <TextArea
+            id="question"
+            ref={inputRef}
+            value={question}
+            onChange={e => setQuestion(e.target.value)}
+          />
+        </StyledInputWrapper>
+        <StyledInputWrapper>
+          <Label htmlFor="answer">Odpowiedź:</Label>
+          <TextArea
+            id="answer"
+            value={answer}
+            onChange={e => setAnswer(e.target.value)}
+          />
+        </StyledInputWrapper>
+        {/* <Input
           refProp={inputRef}
           label="Pytanie: "
           name="questionInput"
           gotValue={question}
           setValue={setQuestion}
-        />
-        <Input
+        /> */}
+        {/* <Input
           label="Odpowiedź: "
           name="answerInput"
           gotValue={answer}
           setValue={setAnswer}
-        />
+        /> */}
         <StyledSelectsWrapper>
           <Select
             category="Kategoria"

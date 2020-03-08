@@ -1,36 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Label from '../label/Label';
+import TextArea from './TextArea';
 
 const StyledWrapper = styled.div`
   display: flex;
+  justify-content: center;
   margin: 10px;
-`;
-
-const StyledLabel = styled.label`
-  width: 120px;
-  font-size: 20px;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-`;
-
-const StyledInput = styled.textarea`
-  width: 1000px;
-  height: 150px;
-  color: black;
-  background-color: rgba(196, 196, 196, 0.2);
-
-  &:focus {
-    background-color: rgba(210, 246, 193, 0.5);
-  }
+  width: 100%;
 `;
 
 const Input = ({ label, name, gotValue, setValue, refProp }) => {
   return (
     <StyledWrapper>
-      <StyledLabel htmlFor={name}>{label}</StyledLabel>
-      <StyledInput
+      <Label htmlFor={name}>{label}</Label>
+      <TextArea
         ref={refProp}
         id={name}
         type="text"
