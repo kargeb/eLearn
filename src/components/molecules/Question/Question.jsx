@@ -4,12 +4,9 @@ import styled from 'styled-components';
 
 const StyledWrapper = styled.div`
   margin: 10px auto;
-  /* padding: 10px;
-  background-color: #999; */
   width: 80vw;
   min-height: 50px;
   display: flex;
-  /* filter: blur(8px); */
 `;
 
 const StyledQuestion = styled.div`
@@ -19,7 +16,6 @@ const StyledQuestion = styled.div`
   width: 40%;
   padding: 10px;
   font-family: Roboto;
-  /* font-style: 600; */
   font-weight: 500;
   font-size: 18px;
   line-height: 36px;
@@ -30,7 +26,6 @@ const StyledAnswer = styled.div`
   white-space: pre-wrap;
   background-color: rgba(196, 196, 196, 0.2);
   width: 60%;
-  /* font-family: 'Open Sans'; */
   font-family: Roboto;
   font-style: normal;
   font-weight: 400;
@@ -81,7 +76,6 @@ const StyledSubjectFiled = styled.div`
   min-width: 50px;
   height: 29px;
   font-weight: bold;
-  /* border: 1px solid #ccc; */
   text-align: center;
   font-size: 12px;
 `;
@@ -92,7 +86,6 @@ const StyledSourceFiled = styled.div`
   left: 75%;
   min-width: 50px;
   height: 29px;
-  /* font-weight: bold; */
   border: 1px solid #ccc;
   text-align: center;
   font-size: 12px;
@@ -104,7 +97,6 @@ const StyledDateFiled = styled.div`
   left: 75%;
   min-width: 50px;
   height: 29px;
-  /* font-weight: bold; */
   border: 1px solid #ccc;
   text-align: center;
   font-style: italic;
@@ -118,7 +110,7 @@ const getDatefromId = id => {
 };
 
 const Question = ({ item, index, removeQuestion, turnOnEditMode }) => {
-  const { question, answer, category, id, subject, source } = item;
+  const { question, answer, category, id, topic, source } = item;
 
   return (
     <StyledWrapper>
@@ -139,7 +131,7 @@ const Question = ({ item, index, removeQuestion, turnOnEditMode }) => {
           <code>{category}</code>
         </StyledCategoryFiled>
         <StyledSubjectFiled>
-          <span>{subject}</span>
+          <span>{topic}</span>
         </StyledSubjectFiled>
         <StyledSourceFiled>
           <span>{source}</span>
@@ -158,17 +150,12 @@ Question.propTypes = {
     answer: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    subject: PropTypes.string.isRequired,
+    topic: PropTypes.string.isRequired,
     source: PropTypes.string
   }).isRequired,
-  index: PropTypes.number.isRequired
+  index: PropTypes.number.isRequired,
+  removeQuestion: PropTypes.func.isRequired,
+  turnOnEditMode: PropTypes.func.isRequired
 };
 
 export default Question;
-
-// item: PropTypes.exact({
-//   question: PropTypes.string.isRequired,
-//   answer: PropTypes.string.isRequired,
-//   category: PropTypes.string.isRequired,
-//   id: PropTypes.number.isRequired
-// })

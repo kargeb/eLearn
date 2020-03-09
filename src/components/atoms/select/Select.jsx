@@ -9,7 +9,6 @@ import Label from '../label/Label';
 const StyledWrapper = styled.div`
   display: flex;
   margin: 10px;
-  /* background-color: blue; */
 `;
 
 const StyledSelect = styled.select`
@@ -20,17 +19,6 @@ const StyledSelect = styled.select`
   option {
     background-color: rgba(196, 196, 196, 0.2);
   }
-`;
-
-// const StyledOption = styled.option`
-//   background-color: rgba(196, 196, 196, 0.2);
-// `;
-
-const StyledIcon = styled(Icon)`
-  margin-top: 8px;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
 `;
 
 const StyledAddSelectForm = styled.div`
@@ -77,7 +65,9 @@ const Select = ({ category, options, gotValue, setValue, addOption }) => {
         value={gotValue}
         onChange={e => setValue(e.target.value)}
       >
-        <option disabled hidden />
+        <option disabled hidden>
+          {' '}
+        </option>
         {options.map(option => (
           <option key={option}>{option}</option>
         ))}
@@ -118,12 +108,14 @@ Select.propTypes = {
   category: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   gotValue: PropTypes.string,
-  setValue: PropTypes.func
+  setValue: PropTypes.func,
+  addOption: PropTypes.func
 };
 
 Select.defaultProps = {
   gotValue: '',
-  setValue: null
+  setValue: null,
+  addOption: () => {}
 };
 
 export default Select;

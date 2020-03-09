@@ -31,7 +31,7 @@ const QuestionsView = () => {
 
   const editQuestion = editedQuestion => {
     const newQuestions = questions.map(question => {
-      if (question.id == editedQuestion.id) {
+      if (question.id === editedQuestion.id) {
         const edited = { ...editedQuestion };
         return edited;
       }
@@ -49,7 +49,7 @@ const QuestionsView = () => {
 
   const turnOnEditMode = id => {
     setEditMode(true);
-    const pointedQuestion = questions.filter(question => question.id == id);
+    const pointedQuestion = questions.filter(question => question.id === id);
     setEditingQuestion(pointedQuestion[0]);
     toggleFormVisibility();
   };
@@ -58,7 +58,7 @@ const QuestionsView = () => {
     question: '',
     answer: '',
     category: '',
-    subject: '',
+    topic: '',
     source: ''
   };
 

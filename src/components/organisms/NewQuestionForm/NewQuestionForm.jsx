@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Input from '../../atoms/input/Input';
-import Select from '../../atoms/select/Select';
 import Button from '../../atoms/buttons/Button';
 import Icon from '../../atoms/icons/Icon';
 import cancelIcon from '../../../assets/images/CancelIcon.svg';
 import confirmIcon from '../../../assets/images/ConfirmIcon.svg';
 import Label from '../../atoms/label/Label';
 import TextArea from '../../atoms/input/TextArea';
+import useDropdown from '../../hooks/useDropdown';
 
 // import useInput from '../../atoms/input/useInput';
 
@@ -94,53 +93,33 @@ const NewQuestionForm = ({
 }) => {
   const [question, setQuestion] = useState(defaultQuestion.question);
   const [answer, setAnswer] = useState(defaultQuestion.answer);
-  const [category, setCategory] = useState(defaultQuestion.category);
-  const [subject, setSubject] = useState(defaultQuestion.subject);
-  const [source, setSource] = useState(defaultQuestion.source);
   const [emptyFieldsPrompt, setEmptyFildsPrompt] = useState(false);
 
-  const [categoryOptions, setCategoryOptions] = useState([
-    'JS',
-    'HTML',
-    'GIT',
-    'React'
-  ]);
-  const [topicOptions, setTopicOptions] = useState([
-    'Funkcje',
-    'Tablice',
-    'Hooki',
-    'Komendy',
-    'Other'
-  ]);
-  const [sourceOptions, setSourceOptions] = useState([
-    'Samuraj',
-    'ModernJS',
-    'Roman',
-    'Doc',
-    'Other'
-  ]);
+  const categories = ['JS', 'HTML', 'GIT', 'React'];
+  const topics = ['Funkcje', 'Tablice', 'Hooki', 'Komendy', 'Other'];
+  const sources = ['Samuraj', 'ModernJS', 'Roman', 'Doc', 'Other'];
+
+  const [category, CategoryDropdown, setCategory] = useDropdown(
+    'Kategoria',
+    categories,
+    defaultQuestion.category
+  );
+  const [topic, TopicDropdown, setTopic] = useDropdown(
+    'Temat',
+    topics,
+    defaultQuestion.topic
+  );
+  const [source, SourceDropdown, setSource] = useDropdown(
+    'Żródło',
+    sources,
+    defaultQuestion.source
+  );
 
   const inputRef = useRef();
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-
-  const addOption = (Category, newOption) => {
-    switch (Category) {
-      case 'Kategoria':
-        setCategoryOptions(prevState => [...prevState, newOption]);
-        break;
-      case 'Temat':
-        setTopicOptions(prevState => [...prevState, newOption]);
-        break;
-      case 'Źródło':
-        setSourceOptions(prevState => [...prevState, newOption]);
-        break;
-      default:
-        break;
-    }
-  };
 
   const resetStates = () => {
     setQuestion('');
@@ -154,12 +133,12 @@ const NewQuestionForm = ({
       question,
       answer,
       category,
-      subject,
+      topic,
       source,
       id: +new Date() // date as number for example: 1582808704000
     };
 
-    if (question && answer && category && subject && source) {
+    if (question && answer && category && topic && source) {
       addNewQuestion(newQuestion);
       resetStates();
       inputRef.current.focus();
@@ -175,12 +154,12 @@ const NewQuestionForm = ({
       question,
       answer,
       category,
-      subject,
+      topic,
       source,
       id
     };
 
-    if (question && answer && category && subject && source) {
+    if (question && answer && category && topic && source) {
       editQuestion(editedQuestion);
       toggleFormVisibility();
     } else {
@@ -189,8 +168,7 @@ const NewQuestionForm = ({
   };
 
   return (
-    <>
-      {console.log('2323')}
+    <div>
       <StyledBackground />
       <StyledFormWrapper>
         <StyledInputWrapper>
@@ -210,41 +188,10 @@ const NewQuestionForm = ({
             onChange={e => setAnswer(e.target.value)}
           />
         </StyledInputWrapper>
-        {/* <Input
-          refProp={inputRef}
-          label="Pytanie: "
-          name="questionInput"
-          gotValue={question}
-          setValue={setQuestion}
-        /> */}
-        {/* <Input
-          label="Odpowiedź: "
-          name="answerInput"
-          gotValue={answer}
-          setValue={setAnswer}
-        /> */}
         <StyledSelectsWrapper>
-          <Select
-            category="Kategoria"
-            addOption={addOption}
-            options={categoryOptions}
-            gotValue={category}
-            setValue={setCategory}
-          />
-          <Select
-            category="Temat"
-            addOption={addOption}
-            options={topicOptions}
-            gotValue={subject}
-            setValue={setSubject}
-          />
-          <Select
-            category="Źródło"
-            addOption={addOption}
-            options={sourceOptions}
-            gotValue={source}
-            setValue={setSource}
-          />
+          <CategoryDropdown />
+          <TopicDropdown />
+          <SourceDropdown />
         </StyledSelectsWrapper>
         <StyledButtonWrapper>
           {editMode ? (
@@ -261,14 +208,16 @@ const NewQuestionForm = ({
               <Icon horizontalGap icon={confirmIcon} />
             </StyledAddButton>
           )}
-          <StyledCancelButton onClick={toggleFormVisibility} type="button">
-            Porzuć
-            <Icon horizontalGap icon={cancelIcon} />
-          </StyledCancelButton>
+          {!editMode && (
+            <StyledCancelButton onClick={toggleFormVisibility} type="button">
+              Porzuć
+              <Icon horizontalGap icon={cancelIcon} />
+            </StyledCancelButton>
+          )}
         </StyledButtonWrapper>
         {emptyFieldsPrompt && <StyledPrompt>Są puste pola!</StyledPrompt>}
       </StyledFormWrapper>
-    </>
+    </div>
   );
 };
 
