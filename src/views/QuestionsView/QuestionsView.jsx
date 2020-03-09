@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../../components/atoms/logo/Logo';
-import data from '../../assets/dummyData/questions';
+// import data from '../../assets/dummyData/questions';
 import Question from '../../components/molecules/Question/Question';
 import Button from '../../components/atoms/buttons/Button';
 import NewQuestionForm from '../../components/organisms/NewQuestionForm/NewQuestionForm';
 import Icon from '../../components/atoms/icons/Icon';
 import plusIcon from '../../assets/images/PlusIcon.svg';
+import firebaseApp from '../../fbase';
 
 const StyledAddQuestionButton = styled.div`
   position: fixed;
@@ -16,10 +17,34 @@ const StyledAddQuestionButton = styled.div`
 `;
 
 const QuestionsView = () => {
+  // console.log(`data z apki ${data}`);
+
   const [isFormVisible, setFormVisibility] = useState(false);
-  const [questions, setQuestion] = useState(data);
+  const [questions, setQuestion] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
+
+  useEffect(() => {
+    console.log('jestes w useEffect');
+
+    firebaseApp
+      .collection('questions')
+      .get()
+      .then(querySnapshot => {
+        const data = [];
+
+        querySnapshot.forEach(doc => {
+          data.push(doc.data());
+
+          // console.log(`${doc.id} => ${gotData}`);
+        });
+        return data;
+      })
+      .then(data => {
+        console.log('przed setQestions w useEffect');
+        setQuestion(data);
+      });
+  }, []);
 
   const toggleFormVisibility = () => {
     setFormVisibility(!isFormVisible);
