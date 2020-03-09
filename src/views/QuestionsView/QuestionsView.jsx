@@ -24,19 +24,17 @@ const QuestionsView = () => {
   const [editMode, setEditMode] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
 
-  useEffect(() => {
-    console.log('jestes w useEffect');
-
+  const getQuestions = () => {
     firebaseApp
       .collection('questions')
+      .orderBy('id')
       .get()
       .then(querySnapshot => {
         const data = [];
 
         querySnapshot.forEach(doc => {
+          console.log(doc.data());
           data.push(doc.data());
-
-          // console.log(`${doc.id} => ${gotData}`);
         });
         return data;
       })
@@ -44,14 +42,44 @@ const QuestionsView = () => {
         console.log('przed setQestions w useEffect');
         setQuestion(data);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    console.log('jestes w useEffect');
+
+    getQuestions();
+  }, [isFormVisible]);
 
   const toggleFormVisibility = () => {
     setFormVisibility(!isFormVisible);
   };
 
   const addNewQuestion = newQuestion => {
-    setQuestion(prevState => [...prevState, newQuestion]);
+    console.log(newQuestion);
+
+    // setQuestion(prevState => [...prevState, newQuestion]);
+
+    const { question, answer, category, topic, source, id } = newQuestion;
+
+    // const idString = id.toString();
+
+    firebaseApp
+      .collection('questions')
+      .doc(id.toString())
+      .set({
+        question,
+        answer,
+        category,
+        topic,
+        source,
+        id
+      })
+      .then(function(docRef) {
+        console.log('Document written with ID: ', docRef.id);
+      })
+      .catch(function(error) {
+        console.error('Error adding document: ', error);
+      });
   };
 
   const editQuestion = editedQuestion => {
@@ -68,8 +96,23 @@ const QuestionsView = () => {
   };
 
   const removeQuestion = id => {
-    const newQuestions = questions.filter(question => question.id !== id);
-    setQuestion([...newQuestions]);
+    const pointedQuestions = questions.filter(question => question.id == id);
+    // setQuestion([...newQuestions]);
+    console.log(pointedQuestions[0].id);
+
+    const toDelete = pointedQuestions[0].id.toString();
+
+    firebaseApp
+      .collection('questions')
+      .doc(toDelete)
+      .delete()
+      .then(function() {
+        console.log('Document successfully deleted!');
+      })
+      .then(getQuestions())
+      .catch(function(error) {
+        console.error('Error removing document: ', error);
+      });
   };
 
   const turnOnEditMode = id => {
