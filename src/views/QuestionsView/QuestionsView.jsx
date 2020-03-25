@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../../components/atoms/logo/Logo';
-// import data from '../../assets/dummyData/questions';
+import data from '../../assets/dummyData/questions';
 import Question from '../../components/molecules/Question/Question';
 import Button from '../../components/atoms/buttons/Button';
 import NewQuestionForm from '../../components/organisms/NewQuestionForm/NewQuestionForm';
@@ -24,31 +24,62 @@ const QuestionsView = () => {
   const [editMode, setEditMode] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
 
-  const getQuestions = () => {
-    firebaseApp
-      .collection('questions')
-      .orderBy('id')
-      .get()
-      .then(querySnapshot => {
-        const data = [];
+  // const getQuestions = () => {
+  //   const connection = firebaseApp
+  //     .collection('questions')
+  //     // .orderBy('id')
+  //     .get()
+  //     .then(querySnapshot => {
+  //       const data = [];
 
-        querySnapshot.forEach(doc => {
-          console.log(doc.data());
-          data.push(doc.data());
-        });
-        return data;
-      })
-      .then(data => {
-        console.log('przed setQestions w useEffect');
-        setQuestion(data);
-      });
+  //       querySnapshot.forEach(doc => {
+  //         console.log(doc.data());
+  //         data.push(doc.data());
+  //       });
+  //       return data;
+  //     })
+  //     .then(data => {
+  //       console.log('przed setQestions w useEffect');
+  //       setQuestion(data);
+  //     });
+
+  //   return connection;
+  // };
+
+  const getAllQuestionsFromServerAsString = () => {
+    firebaseApp
+      .collection('questionsString')
+      .doc('1')
+      // .orderBy('id')
+      .get()
+      .then(doc => doc.data().all)
+      .then(allQuestions => JSON.parse(allQuestions))
+      .then(allQuestionsJSON => setQuestion(allQuestionsJSON));
   };
 
-  useEffect(() => {
-    console.log('jestes w useEffect');
+  useEffect(
+    () => {
+      console.log('jestes w useEffect');
 
-    getQuestions();
-  }, [isFormVisible]);
+      // const stopConnection = getQuestions();
+
+      // const allQuestionInString = JSON.stringify(data);
+      // console.log(allQuestionInString);
+
+      // const allQuestionsInJSON = JSON.parse(allQuestionInString);
+      // console.log(allQuestionsInJSON);
+
+      // setQuestion(allQuestionsInJSON);
+
+      getAllQuestionsFromServerAsString();
+
+      // console.log(`stopconnection = ${stopConnection}`);
+
+      // return () => stopConnection();
+    },
+    // [isFormVisible]
+    []
+  );
 
   const toggleFormVisibility = () => {
     setFormVisibility(!isFormVisible);
@@ -59,27 +90,42 @@ const QuestionsView = () => {
 
     // setQuestion(prevState => [...prevState, newQuestion]);
 
-    const { question, answer, category, topic, source, id } = newQuestion;
+    console.log(questions);
 
-    // const idString = id.toString();
+    const allQuestions = [...questions, newQuestion];
+
+    console.log(allQuestions);
+
+    const allQuestionsStringyfied = JSON.stringify(allQuestions);
+
+    console.log(allQuestionsStringyfied);
 
     firebaseApp
-      .collection('questions')
-      .doc(id.toString())
+      .collection('questionsString')
+      .doc('1')
       .set({
-        question,
-        answer,
-        category,
-        topic,
-        source,
-        id
+        all: allQuestionsStringyfied
       })
-      .then(function(docRef) {
-        console.log('Document written with ID: ', docRef.id);
+      .then(function() {
+        console.log('Document written');
       })
       .catch(function(error) {
         console.error('Error adding document: ', error);
       });
+
+    // const { question, answer, category, topic, source, id } = newQuestion;
+
+    // console.log(questions);
+
+    // const newQuestionStringyfied = JSON.stringify(newQuestion);
+
+    // console.log(newQuestionStringyfied);
+
+    // const newAllQuestions = JSON.stringify(questions);
+
+    // console.log(newAllQuestions);
+
+    // const idString = id.toString();
   };
 
   const editQuestion = editedQuestion => {
@@ -108,11 +154,11 @@ const QuestionsView = () => {
       .delete()
       .then(function() {
         console.log('Document successfully deleted!');
-      })
-      .then(getQuestions())
-      .catch(function(error) {
-        console.error('Error removing document: ', error);
       });
+    // .then(getQuestions())
+    // .catch(function(error) {
+    //   console.error('Error removing document: ', error);
+    // });
   };
 
   const turnOnEditMode = id => {

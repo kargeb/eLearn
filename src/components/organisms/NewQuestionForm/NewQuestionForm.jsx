@@ -6,7 +6,7 @@ import Icon from '../../atoms/icons/Icon';
 import cancelIcon from '../../../assets/images/CancelIcon.svg';
 import confirmIcon from '../../../assets/images/ConfirmIcon.svg';
 import Label from '../../atoms/label/Label';
-import TextArea from '../../atoms/input/TextArea';
+import TextArea from '../../atoms/textarea/TextArea';
 import useDropdown from '../../hooks/useDropdown';
 
 // import useInput from '../../atoms/input/useInput';

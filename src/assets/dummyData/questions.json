@@ -30,5 +30,21 @@
     "topic": "Commends",
     "source": "samuraj",
     "id": 1582808705000
+  },
+  {
+    "question": "co to gałąź",
+    "answer": "Kopia repozytrium, KONCEPCYJNA nie fizyczna, \nczyli wp likach gita nie ma faktycznej kopi",
+    "category": "GIT",
+    "topic": "Gałęzie",
+    "source": "devstyle",
+    "id": 1582808804000
+  },
+  {
+    "question": "Co to master",
+    "answer": "Domyślan zawza pierwszej gałęzi repo gita, NIE POWINNO SIĘ JEJ ZMINIAC",
+    "category": "GIT",
+    "topic": "Gałęzie",
+    "source": "devstyle",
+    "id": 1582808905000
   }
 ]
