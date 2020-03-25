@@ -24,6 +24,8 @@ const QuestionsView = () => {
   const [editMode, setEditMode] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
 
+  const categories = ['JS', 'HTML', 'GIT', 'React'];
+
   // const getQuestions = () => {
   //   const connection = firebaseApp
   //     .collection('questions')
@@ -112,20 +114,6 @@ const QuestionsView = () => {
       .catch(function(error) {
         console.error('Error adding document: ', error);
       });
-
-    // const { question, answer, category, topic, source, id } = newQuestion;
-
-    // console.log(questions);
-
-    // const newQuestionStringyfied = JSON.stringify(newQuestion);
-
-    // console.log(newQuestionStringyfied);
-
-    // const newAllQuestions = JSON.stringify(questions);
-
-    // console.log(newAllQuestions);
-
-    // const idString = id.toString();
   };
 
   const editQuestion = editedQuestion => {
@@ -202,6 +190,7 @@ const QuestionsView = () => {
       )}
       {isFormVisible && (
         <NewQuestionForm
+          categories={categories}
           editMode={editMode}
           toggleFormVisibility={toggleFormVisibility}
           addNewQuestion={addNewQuestion}

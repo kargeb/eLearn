@@ -85,6 +85,7 @@ const StyledPrompt = styled.span`
 `;
 
 const NewQuestionForm = ({
+  categories,
   editMode,
   toggleFormVisibility,
   addNewQuestion,
@@ -95,7 +96,7 @@ const NewQuestionForm = ({
   const [answer, setAnswer] = useState(defaultQuestion.answer);
   const [emptyFieldsPrompt, setEmptyFildsPrompt] = useState(false);
 
-  const categories = ['JS', 'HTML', 'GIT', 'React'];
+  // const categories = ['JS', 'HTML', 'GIT', 'React'];
   const topics = ['Funkcje', 'Tablice', 'Hooki', 'Komendy', 'Other'];
   const sources = ['Samuraj', 'ModernJS', 'Roman', 'Doc', 'Other'];
 

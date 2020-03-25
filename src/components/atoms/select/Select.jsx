@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Icon from '../icons/Icon';
 import plusIcon from '../../../assets/images/PlusIcon.svg';
-import Input from '../input/Input';
+import Input from '../textarea/TextArea';
 import Label from '../label/Label';
 
 const StyledWrapper = styled.div`
