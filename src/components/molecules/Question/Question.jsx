@@ -32,6 +32,10 @@ const StyledAnswer = styled.div`
   font-size: 16px;
   padding: 10px;
   line-height: 26px;
+
+  &:hover {
+    background-color: blue;
+  }
 `;
 
 const StyledNumberFiled = styled.div`

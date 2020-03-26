@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Question from '../Question/Question';
 
 const StyledWrapper = styled.div`
   margin: 10px auto;
@@ -8,6 +9,10 @@ const StyledWrapper = styled.div`
   display: flex;
   background-color: #e5e6e5;
   align-items: center;
+`;
+
+const StyledTopicWrapper = styled(StyledWrapper)`
+  margin-left: 250px;
 `;
 
 const StyledLabel = styled.div`
@@ -28,11 +33,48 @@ const StyledNumber = styled.div`
   padding: 5px 10px;
 `;
 
-const Category = ({ category, amount }) => (
-  <StyledWrapper>
-    <StyledLabel>{category}</StyledLabel>
-    <StyledNumber>{amount}</StyledNumber>
-  </StyledWrapper>
+const Category = ({ category, amount, questions }) => (
+  <div>
+    <StyledWrapper>
+      <StyledLabel>{category.name}</StyledLabel>
+      <StyledNumber>{amount}</StyledNumber>
+    </StyledWrapper>
+    <ul>
+      {/* {questions.map((question, index) => (
+        <Question key={question.id} index={index} item={question} />
+      ))} */}
+      {/* {questions.map(topic => {
+
+        const filteredByTopic = questions.filter(
+            question => question.topic == category.topic
+          );
+
+      })} */}
+      {/* {console.log(`categroy topic: ${category.topics}`)}; */}
+      {category.topics.map(topic => {
+        const filteredByTopic = questions.filter(
+          question => question.topic == topic
+        );
+
+        {
+          /* console.log(`filteredByTopic: ${filteredByTopic}`); */
+        }
+        return (
+          <>
+            <StyledTopicWrapper>
+              <StyledLabel>{topic}</StyledLabel>
+              <StyledNumber>{filteredByTopic.length}</StyledNumber>
+            </StyledTopicWrapper>
+            <ul>
+              {filteredByTopic.map((question, index) => (
+                <Question key={question.id} index={index} item={question} />
+              ))}
+            </ul>
+          </>
+        );
+      })}
+    </ul>
+  </div>
 );
 
 export default Category;

@@ -7,6 +7,7 @@ import Question from '../../components/molecules/Question/Question';
 import Button from '../../components/atoms/buttons/Button';
 import NewQuestionForm from '../../components/organisms/NewQuestionForm/NewQuestionForm';
 import Icon from '../../components/atoms/icons/Icon';
+import Category from '../../components/molecules/category/Category';
 import plusIcon from '../../assets/images/PlusIcon.svg';
 import firebaseApp from '../../fbase';
 
@@ -24,7 +25,13 @@ const QuestionsView = () => {
   const [editMode, setEditMode] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
 
-  const categories = ['JS', 'HTML', 'GIT', 'React'];
+  // const categories = ['JS', 'HTML', 'GIT', 'React'];
+  const categories = [
+    { name: 'JS', topics: ['Data types', 'Hooki'] },
+    { name: 'HTML', topics: ['Browser', 'Komendy'] },
+    { name: 'GIT', topics: ['Gałęzie', 'Commends'] },
+    { name: 'React', topics: ['Tablice'] }
+  ];
 
   // const getQuestions = () => {
   //   const connection = firebaseApp
@@ -169,7 +176,28 @@ const QuestionsView = () => {
       <Link to="/">
         <Logo small />
       </Link>
+
       <ul>
+        {categories.map(category => {
+          const filteredByCategory = questions.filter(
+            question => question.category == category.name
+          );
+
+          console.log(filteredByCategory);
+          return (
+            <li key={category.name}>
+              <Category
+                questions={filteredByCategory}
+                category={category}
+                amount={filteredByCategory.length}
+              />
+              {/* {category} {filteredByCategory.length} */}
+            </li>
+          );
+        })}
+      </ul>
+
+      {/* <ul>
         {questions.map((question, index) => (
           <Question
             key={question.id}
@@ -179,7 +207,7 @@ const QuestionsView = () => {
             turnOnEditMode={turnOnEditMode}
           />
         ))}
-      </ul>
+      </ul> */}
       {!isFormVisible && (
         <StyledAddQuestionButton>
           <Button onClick={toggleFormVisibility}>
