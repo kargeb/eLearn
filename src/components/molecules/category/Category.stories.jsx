@@ -7,4 +7,9 @@ export default {
   component: Category
 };
 
-export const category = () => <Category item={data[0]} />;
+export const category = () => {
+  const category = 'react';
+  const amount = 123;
+
+  return <Category category={category} amount={amount} />;
+};
