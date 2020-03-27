@@ -8,6 +8,7 @@ import Button from '../../components/atoms/buttons/Button';
 import NewQuestionForm from '../../components/organisms/NewQuestionForm/NewQuestionForm';
 import Icon from '../../components/atoms/icons/Icon';
 import Category from '../../components/molecules/category/Category';
+import CategoryList from '../../components/molecules/categoryList/CategoryList';
 import plusIcon from '../../assets/images/PlusIcon.svg';
 import firebaseApp from '../../fbase';
 
@@ -176,14 +177,13 @@ const QuestionsView = () => {
       <Link to="/">
         <Logo small />
       </Link>
-
-      <ul>
+      <CategoryList questions={questions} categories={categories} />
+      {/* <ul>
         {categories.map(category => {
           const filteredByCategory = questions.filter(
             question => question.category == category.name
           );
 
-          console.log(filteredByCategory);
           return (
             <li key={category.name}>
               <Category
@@ -191,11 +191,10 @@ const QuestionsView = () => {
                 category={category}
                 amount={filteredByCategory.length}
               />
-              {/* {category} {filteredByCategory.length} */}
             </li>
           );
         })}
-      </ul>
+      </ul> */}
 
       {/* <ul>
         {questions.map((question, index) => (
