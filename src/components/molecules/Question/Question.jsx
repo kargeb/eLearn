@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const StyledWrapper = styled.div`
   margin: 10px auto;
-  width: 80vw;
+  width: 80%;
   min-height: 50px;
   display: flex;
 `;
@@ -32,6 +32,10 @@ const StyledAnswer = styled.div`
   font-size: 16px;
   padding: 10px;
   line-height: 26px;
+
+  &:hover {
+    background-color: blue;
+  }
 `;
 
 const StyledNumberFiled = styled.div`

@@ -7,6 +7,8 @@ import Question from '../../components/molecules/Question/Question';
 import Button from '../../components/atoms/buttons/Button';
 import NewQuestionForm from '../../components/organisms/NewQuestionForm/NewQuestionForm';
 import Icon from '../../components/atoms/icons/Icon';
+import Category from '../../components/molecules/category/Category';
+import CategoryList from '../../components/molecules/categoryList/CategoryList';
 import plusIcon from '../../assets/images/PlusIcon.svg';
 import firebaseApp from '../../fbase';
 
@@ -23,6 +25,14 @@ const QuestionsView = () => {
   const [questions, setQuestion] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
+
+  // const categories = ['JS', 'HTML', 'GIT', 'React'];
+  const categories = [
+    { name: 'JS', topics: ['Data types', 'Hooki'] },
+    { name: 'HTML', topics: ['Browser', 'Komendy'] },
+    { name: 'GIT', topics: ['Gałęzie', 'Commends'] },
+    { name: 'React', topics: ['Tablice'] }
+  ];
 
   // const getQuestions = () => {
   //   const connection = firebaseApp
@@ -112,20 +122,6 @@ const QuestionsView = () => {
       .catch(function(error) {
         console.error('Error adding document: ', error);
       });
-
-    // const { question, answer, category, topic, source, id } = newQuestion;
-
-    // console.log(questions);
-
-    // const newQuestionStringyfied = JSON.stringify(newQuestion);
-
-    // console.log(newQuestionStringyfied);
-
-    // const newAllQuestions = JSON.stringify(questions);
-
-    // console.log(newAllQuestions);
-
-    // const idString = id.toString();
   };
 
   const editQuestion = editedQuestion => {
@@ -181,7 +177,9 @@ const QuestionsView = () => {
       <Link to="/">
         <Logo small />
       </Link>
-      <ul>
+      <CategoryList questions={questions} categories={categories} />
+
+      {/* <ul>
         {questions.map((question, index) => (
           <Question
             key={question.id}
@@ -191,7 +189,7 @@ const QuestionsView = () => {
             turnOnEditMode={turnOnEditMode}
           />
         ))}
-      </ul>
+      </ul> */}
       {!isFormVisible && (
         <StyledAddQuestionButton>
           <Button onClick={toggleFormVisibility}>
@@ -202,6 +200,7 @@ const QuestionsView = () => {
       )}
       {isFormVisible && (
         <NewQuestionForm
+          categories={categories}
           editMode={editMode}
           toggleFormVisibility={toggleFormVisibility}
           addNewQuestion={addNewQuestion}
