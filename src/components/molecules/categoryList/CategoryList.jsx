@@ -11,10 +11,6 @@ const StyledWrapper = styled.div`
   align-items: center;
 `;
 
-const StyledTopicWrapper = styled(StyledWrapper)`
-  margin-left: 250px;
-`;
-
 const StyledLabel = styled.div`
   width: 100px;
   font-family: Roboto;
@@ -45,8 +41,6 @@ const CategoryList = ({ questions, categories }) => (
           <StyledWrapper>
             <StyledLabel>{category.name}</StyledLabel>
             <StyledNumber>{questionsFilteredByCategory.length}</StyledNumber>
-            {console.log(`filteredByCategopry ${questionsFilteredByCategory}`)}
-            {console.log(`category topics ${category.topics}`)}
           </StyledWrapper>
           <TopicList
             questionsFilteredByCategory={questionsFilteredByCategory}

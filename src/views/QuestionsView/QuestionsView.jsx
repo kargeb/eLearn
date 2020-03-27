@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../../components/atoms/logo/Logo';
 import data from '../../assets/dummyData/questions';
-import Question from '../../components/molecules/Question/Question';
 import Button from '../../components/atoms/buttons/Button';
 import NewQuestionForm from '../../components/organisms/NewQuestionForm/NewQuestionForm';
 import Icon from '../../components/atoms/icons/Icon';
-import Category from '../../components/molecules/category/Category';
 import CategoryList from '../../components/molecules/categoryList/CategoryList';
 import plusIcon from '../../assets/images/PlusIcon.svg';
 import firebaseApp from '../../fbase';
@@ -23,8 +21,6 @@ const QuestionsView = () => {
   const [questions, setQuestion] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
-
-  // const categories = ['JS', 'HTML', 'GIT', 'React'];
   const categories = [
     { name: 'JS', topics: ['Data types', 'Hooki'] },
     { name: 'HTML', topics: ['Browser', 'Komendy'] },
@@ -58,7 +54,6 @@ const QuestionsView = () => {
     firebaseApp
       .collection('questionsString')
       .doc('1')
-      // .orderBy('id')
       .get()
       .then(doc => doc.data().all)
       .then(allQuestions => JSON.parse(allQuestions))
