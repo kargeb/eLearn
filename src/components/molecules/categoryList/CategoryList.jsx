@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
 import TopicList from '../topicList/TopicList';
 
 const StyledWrapper = styled.div`
@@ -29,27 +29,60 @@ const StyledNumber = styled.div`
   padding: 5px 10px;
 `;
 
-const CategoryList = ({ questions, categories }) => (
-  <ul>
-    {categories.map(category => {
-      const questionsFilteredByCategory = questions.filter(
-        question => question.category == category.name
-      );
+const StyledAccordion = styled.div`
+  background-color: pink;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 1s;
 
-      return (
-        <li>
-          <StyledWrapper>
-            <StyledLabel>{category.name}</StyledLabel>
-            <StyledNumber>{questionsFilteredByCategory.length}</StyledNumber>
-          </StyledWrapper>
-          <TopicList
-            questionsFilteredByCategory={questionsFilteredByCategory}
-            categoryTopics={category.topics}
-          />
-        </li>
-      );
-    })}
-  </ul>
-);
+  ${({ open }) =>
+    open &&
+    css`
+      max-height: 500px;
+    `}
+`;
+
+const CategoryList = ({ questions, categories }) => {
+  const [open, setOpen] = useState('');
+
+  const handleClick = e => {
+    console.log(e.target.id);
+    setOpen(e.target.id);
+  };
+
+  return (
+    <ul>
+      {categories.map(category => {
+        const questionsFilteredByCategory = questions.filter(
+          question => question.category == category.name
+        );
+
+        return (
+          <li>
+            <StyledWrapper onClick={handleClick} id={category.name}>
+              <StyledLabel>{category.name}</StyledLabel>
+              <StyledNumber>{questionsFilteredByCategory.length}</StyledNumber>
+            </StyledWrapper>
+            {open == category.name ? (
+              <StyledAccordion open>
+                <TopicList
+                  questionsFilteredByCategory={questionsFilteredByCategory}
+                  categoryTopics={category.topics}
+                />
+              </StyledAccordion>
+            ) : (
+              <StyledAccordion>
+                <TopicList
+                  questionsFilteredByCategory={questionsFilteredByCategory}
+                  categoryTopics={category.topics}
+                />
+              </StyledAccordion>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
 
 export default CategoryList;
