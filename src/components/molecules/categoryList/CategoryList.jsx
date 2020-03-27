@@ -30,10 +30,10 @@ const StyledNumber = styled.div`
 `;
 
 const StyledAccordion = styled.div`
-  background-color: pink;
+  /* background-color: pink; */
   max-height: 0px;
   overflow: hidden;
-  transition: max-height 1s;
+  transition: max-height 0.5s;
 
   ${({ open }) =>
     open &&
@@ -43,11 +43,21 @@ const StyledAccordion = styled.div`
 `;
 
 const CategoryList = ({ questions, categories }) => {
-  const [open, setOpen] = useState('');
+  const [open, setOpen] = useState([]);
 
   const handleClick = e => {
-    console.log(e.target.id);
-    setOpen(e.target.id);
+    const currentElement = e.target.id;
+    console.log(currentElement);
+
+    if (open.includes(currentElement)) {
+      console.log('opens includes to juz');
+      const newOpens = open.filter(item => item != currentElement);
+      console.log(`newOpens w ifie ${newOpens}`);
+      setOpen(newOpens);
+    } else setOpen(prevState => [...prevState, currentElement]);
+
+    // setOpen(prevState => [...prevState, currentElement]);
+    console.log(`w open ${open}`);
   };
 
   return (
@@ -63,7 +73,7 @@ const CategoryList = ({ questions, categories }) => {
               <StyledLabel>{category.name}</StyledLabel>
               <StyledNumber>{questionsFilteredByCategory.length}</StyledNumber>
             </StyledWrapper>
-            {open == category.name ? (
+            {open.includes(category.name) ? (
               <StyledAccordion open>
                 <TopicList
                   questionsFilteredByCategory={questionsFilteredByCategory}
