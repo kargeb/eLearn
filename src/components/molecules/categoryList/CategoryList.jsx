@@ -30,15 +30,14 @@ const StyledNumber = styled.div`
 `;
 
 const StyledAccordion = styled.div`
-  /* background-color: pink; */
   max-height: 0px;
   overflow: hidden;
-  transition: max-height 0.5s;
+  transition: max-height 0.5s ease;
 
   ${({ open }) =>
     open &&
     css`
-      max-height: 500px;
+      max-height: 1000px;
     `}
 `;
 
@@ -66,21 +65,13 @@ const CategoryList = ({ questions, categories }) => {
               <StyledLabel>{category.name}</StyledLabel>
               <StyledNumber>{questionsFilteredByCategory.length}</StyledNumber>
             </StyledWrapper>
-            {/* {open.includes(category.name) ? (
-              <StyledAccordion open>
-                <TopicList
-                  questionsFilteredByCategory={questionsFilteredByCategory}
-                  categoryTopics={category.topics}
-                />
-              </StyledAccordion>
-            ) : ( */}
+
             <StyledAccordion open={open.includes(category.name)}>
               <TopicList
                 questionsFilteredByCategory={questionsFilteredByCategory}
                 categoryTopics={category.topics}
               />
             </StyledAccordion>
-            {/* )} */}
           </li>
         );
       })}
