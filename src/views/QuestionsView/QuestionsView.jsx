@@ -178,23 +178,6 @@ const QuestionsView = () => {
         <Logo small />
       </Link>
       <CategoryList questions={questions} categories={categories} />
-      {/* <ul>
-        {categories.map(category => {
-          const filteredByCategory = questions.filter(
-            question => question.category == category.name
-          );
-
-          return (
-            <li key={category.name}>
-              <Category
-                questions={filteredByCategory}
-                category={category}
-                amount={filteredByCategory.length}
-              />
-            </li>
-          );
-        })}
-      </ul> */}
 
       {/* <ul>
         {questions.map((question, index) => (

@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import TopicList from '../topicList/TopicList';
 
-const StyledWrapper = styled.li`
+const StyledWrapper = styled.div`
   margin: 10px auto;
   width: 80vw;
   min-height: 50px;
@@ -35,15 +36,23 @@ const StyledNumber = styled.div`
 const CategoryList = ({ questions, categories }) => (
   <ul>
     {categories.map(category => {
-      const filteredByCategory = questions.filter(
+      const questionsFilteredByCategory = questions.filter(
         question => question.category == category.name
       );
 
       return (
-        <StyledWrapper>
-          <StyledLabel>{category.name}</StyledLabel>
-          <StyledNumber>{filteredByCategory.length}</StyledNumber>
-        </StyledWrapper>
+        <li>
+          <StyledWrapper>
+            <StyledLabel>{category.name}</StyledLabel>
+            <StyledNumber>{questionsFilteredByCategory.length}</StyledNumber>
+            {console.log(`filteredByCategopry ${questionsFilteredByCategory}`)}
+            {console.log(`category topics ${category.topics}`)}
+          </StyledWrapper>
+          <TopicList
+            questionsFilteredByCategory={questionsFilteredByCategory}
+            categoryTopics={category.topics}
+          />
+        </li>
       );
     })}
   </ul>
