@@ -47,17 +47,10 @@ const CategoryList = ({ questions, categories }) => {
 
   const handleClick = e => {
     const currentElement = e.target.id;
-    console.log(currentElement);
-
     if (open.includes(currentElement)) {
-      console.log('opens includes to juz');
       const newOpens = open.filter(item => item != currentElement);
-      console.log(`newOpens w ifie ${newOpens}`);
       setOpen(newOpens);
     } else setOpen(prevState => [...prevState, currentElement]);
-
-    // setOpen(prevState => [...prevState, currentElement]);
-    console.log(`w open ${open}`);
   };
 
   return (
@@ -73,21 +66,21 @@ const CategoryList = ({ questions, categories }) => {
               <StyledLabel>{category.name}</StyledLabel>
               <StyledNumber>{questionsFilteredByCategory.length}</StyledNumber>
             </StyledWrapper>
-            {open.includes(category.name) ? (
+            {/* {open.includes(category.name) ? (
               <StyledAccordion open>
                 <TopicList
                   questionsFilteredByCategory={questionsFilteredByCategory}
                   categoryTopics={category.topics}
                 />
               </StyledAccordion>
-            ) : (
-              <StyledAccordion>
-                <TopicList
-                  questionsFilteredByCategory={questionsFilteredByCategory}
-                  categoryTopics={category.topics}
-                />
-              </StyledAccordion>
-            )}
+            ) : ( */}
+            <StyledAccordion open={open.includes(category.name)}>
+              <TopicList
+                questionsFilteredByCategory={questionsFilteredByCategory}
+                categoryTopics={category.topics}
+              />
+            </StyledAccordion>
+            {/* )} */}
           </li>
         );
       })}
