@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import Question from '../Question/Question';
+import QuestionList from '../questionList/QuestionList';
 
-const StyledWrapper = styled.li`
-  margin: 10px auto 10px 250px;
-  width: calc(80vw - 150px);
+const StyledWrapper = styled.div`
+  /* margin: 10px auto 10px 250px; */
+  /* width: calc(80vw - 150px); */
   min-height: 50px;
   display: flex;
   background-color: #e5e6e5;
@@ -32,21 +34,29 @@ const StyledNumber = styled.div`
   padding: 5px 10px;
 `;
 
+const StyledContainer = styled.ul`
+  width: 80%;
+  margin-left: 250px;
+`;
+
 const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => (
-  <ul>
+  <StyledContainer>
     {categoryTopics.map(topic => {
-      const filteredByTopic = questionsFilteredByCategory.filter(
+      const questionsFilteredByTopic = questionsFilteredByCategory.filter(
         question => question.topic == topic
       );
 
       return (
-        <StyledWrapper>
-          <StyledLabel>{topic}</StyledLabel>
-          <StyledNumber>{filteredByTopic.length}</StyledNumber>
-        </StyledWrapper>
+        <li>
+          <StyledWrapper>
+            <StyledLabel>{topic}</StyledLabel>
+            <StyledNumber>{questionsFilteredByTopic.length}</StyledNumber>
+          </StyledWrapper>
+          <QuestionList questionsToShow={questionsFilteredByTopic} />
+        </li>
       );
     })}
-  </ul>
+  </StyledContainer>
 );
 
 export default TopicList;

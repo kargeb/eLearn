@@ -19,6 +19,10 @@ body {
     font-family:'Open Sans', sans-serif;
 }
 
+ul {
+    list-style-type: none;
+}
+
 `;
 
 export default GlobalStyle;

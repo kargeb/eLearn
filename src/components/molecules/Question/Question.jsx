@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const StyledWrapper = styled.div`
   margin: 10px auto;
-  width: 80vw;
+  width: 80%;
   min-height: 50px;
   display: flex;
 `;
