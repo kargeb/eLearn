@@ -19,8 +19,6 @@ const StyledAddQuestionButton = styled.div`
 `;
 
 const QuestionsView = () => {
-  // console.log(`data z apki ${data}`);
-
   const [isFormVisible, setFormVisibility] = useState(false);
   const [questions, setQuestion] = useState([]);
   const [editMode, setEditMode] = useState(false);
