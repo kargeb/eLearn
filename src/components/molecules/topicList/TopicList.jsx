@@ -51,11 +51,7 @@ const StyledAccordion = styled.div`
     `}
 `;
 
-const TopicList = ({
-  questionsFilteredByCategory,
-  categoryTopics,
-  removeQuestion
-}) => {
+const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
   const [open, setOpen] = useState([]);
 
   // const content = useRef(null);
@@ -80,19 +76,24 @@ const TopicList = ({
         );
 
         return (
-          <li key={topic}>
-            <StyledWrapper onClick={handleClick} id={topic}>
-              <StyledLabel>{topic}</StyledLabel>
-              <StyledNumber>{questionsFilteredByTopic.length}</StyledNumber>
-            </StyledWrapper>
-            <StyledAccordion open={open.includes(topic)}>
-              <QuestionList
-                removeQuestion={removeQuestion}
-                questionsToShow={questionsFilteredByTopic}
-                // getScrollHeight={getScrollHeight}
-              />
-            </StyledAccordion>
-          </li>
+          <>
+            {questionsFilteredByTopic.length ? (
+              <li key={topic}>
+                <StyledWrapper onClick={handleClick} id={topic}>
+                  <StyledLabel>{topic}</StyledLabel>
+                  <StyledNumber>{questionsFilteredByTopic.length}</StyledNumber>
+                </StyledWrapper>
+                <StyledAccordion open={open.includes(topic)}>
+                  <QuestionList
+                    questionsToShow={questionsFilteredByTopic}
+                    // getScrollHeight={getScrollHeight}
+                  />
+                </StyledAccordion>
+              </li>
+            ) : (
+              <span> </span>
+            )}
+          </>
         );
       })}
     </StyledContainer>

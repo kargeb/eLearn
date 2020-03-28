@@ -9,6 +9,7 @@ import Icon from '../../components/atoms/icons/Icon';
 import CategoryList from '../../components/molecules/categoryList/CategoryList';
 import plusIcon from '../../assets/images/PlusIcon.svg';
 import firebaseApp from '../../fbase';
+import AppContext from '../../context';
 
 const StyledAddQuestionButton = styled.div`
   position: fixed;
@@ -20,6 +21,7 @@ const QuestionsView = () => {
   const [isFormVisible, setFormVisibility] = useState(false);
   const [questions, setQuestion] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const [changesInDatabase, setChangesInDatabase] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
   const categories = [
     { name: 'JS', topics: ['Data types', 'Hooki', 'Tablice'] },
@@ -44,10 +46,12 @@ const QuestionsView = () => {
 
       getAllQuestionsFromServerAsString();
 
+      setChangesInDatabase(false);
+
       // return () => stopConnection();
     },
     // [isFormVisible]
-    []
+    [changesInDatabase]
   );
 
   const toggleFormVisibility = () => {
@@ -78,6 +82,7 @@ const QuestionsView = () => {
       .then(function() {
         console.log('Document written');
       })
+      .then(setChangesInDatabase(true))
       .catch(function(error) {
         console.error('Error adding document: ', error);
       });
@@ -97,10 +102,26 @@ const QuestionsView = () => {
   };
 
   const removeQuestion = id => {
-    const pointedQuestions = questions.filter(question => question.id == id);
-    // setQuestion([...newQuestions]);
-    console.log(`id pytania:   ${pointedQuestions[0].id}`);
-    console.log(`tresc pytania:   ${pointedQuestions[0].question}`);
+    const remainQuestions = questions.filter(question => question.id !== id);
+
+    console.log(questions);
+    console.log(remainQuestions);
+
+    const remainQuestionsStringyfied = JSON.stringify(remainQuestions);
+
+    firebaseApp
+      .collection('questionsString')
+      .doc('1')
+      .set({
+        all: remainQuestionsStringyfied
+      })
+      .then(function() {
+        console.log('Document written');
+      })
+      .then(setChangesInDatabase(true))
+      .catch(function(error) {
+        console.error('Error adding document: ', error);
+      });
 
     // const toDelete = pointedQuestions[0].id.toString();
 
@@ -135,17 +156,14 @@ const QuestionsView = () => {
 
   return (
     <div>
-      {console.log(questions)}
-      <Link to="/">
-        <Logo small />
-      </Link>
-      <CategoryList
-        questions={questions}
-        categories={categories}
-        removeQuestion={removeQuestion}
-      />
+      <AppContext.Provider value={removeQuestion}>
+        {console.log(questions)}
+        <Link to="/">
+          <Logo small />
+        </Link>
+        <CategoryList questions={questions} categories={categories} />
 
-      {/* <ul>
+        {/* <ul>
         {questions.map((question, index) => (
           <Question
             key={question.id}
@@ -156,24 +174,25 @@ const QuestionsView = () => {
           />
         ))}
       </ul> */}
-      {!isFormVisible && (
-        <StyledAddQuestionButton>
-          <Button onClick={toggleFormVisibility}>
-            Dodaj
-            <Icon horizontalGap icon={plusIcon} />
-          </Button>
-        </StyledAddQuestionButton>
-      )}
-      {isFormVisible && (
-        <NewQuestionForm
-          categories={categories}
-          editMode={editMode}
-          toggleFormVisibility={toggleFormVisibility}
-          addNewQuestion={addNewQuestion}
-          defaultQuestion={editMode ? editingQuestion : defaultQuestion}
-          editQuestion={editQuestion}
-        />
-      )}
+        {!isFormVisible && (
+          <StyledAddQuestionButton>
+            <Button onClick={toggleFormVisibility}>
+              Dodaj
+              <Icon horizontalGap icon={plusIcon} />
+            </Button>
+          </StyledAddQuestionButton>
+        )}
+        {isFormVisible && (
+          <NewQuestionForm
+            categories={categories}
+            editMode={editMode}
+            toggleFormVisibility={toggleFormVisibility}
+            addNewQuestion={addNewQuestion}
+            defaultQuestion={editMode ? editingQuestion : defaultQuestion}
+            editQuestion={editQuestion}
+          />
+        )}
+      </AppContext.Provider>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import AppContext from '../../../context';
 
 const StyledWrapper = styled.div`
   margin: 10px auto;
@@ -97,31 +98,36 @@ const getDatefromId = id => {
   return date.toLocaleDateString();
 };
 
-const Question = ({ item, removeQuestion, turnOnEditMode }) => {
+const Question = ({ item, turnOnEditMode }) => {
   const { question, answer, id, source } = item;
 
   return (
-    <StyledWrapper>
-      <StyledProperties>
-        <StyledSourceFiled>
-          <span>{source}</span>
-        </StyledSourceFiled>
-        <StyledDateFiled>
-          <span>{getDatefromId(id)}</span>
-        </StyledDateFiled>
-        <StyledDescription>1.1. Jakiś rozdział</StyledDescription>
-      </StyledProperties>
-      <StyledQuestion>
-        <span>{question}</span>
-      </StyledQuestion>
-      <StyledAnswer>
-        <span>{answer}</span>
-      </StyledAnswer>
-      <StyledIconsWrapper>
-        <StyledIcon icon={faPen} onClick={() => turnOnEditMode(id)} />
-        <StyledIcon icon={faTrash} onClick={() => removeQuestion(id)} />
-      </StyledIconsWrapper>
-    </StyledWrapper>
+    <AppContext.Consumer>
+      {context => (
+        <StyledWrapper>
+          <StyledProperties>
+            <StyledSourceFiled>
+              <span>{source}</span>
+            </StyledSourceFiled>
+            <StyledDateFiled>
+              <span>{getDatefromId(id)}</span>
+            </StyledDateFiled>
+            <StyledDescription>1.1. Jakiś rozdział</StyledDescription>
+          </StyledProperties>
+          <StyledQuestion>
+            <span>{question}</span>
+          </StyledQuestion>
+          <StyledAnswer>
+            <span>{answer}</span>
+          </StyledAnswer>
+          <StyledIconsWrapper>
+            <StyledIcon icon={faPen} onClick={() => turnOnEditMode(id)} />
+            {/* <StyledIcon icon={faTrash} onClick={() => removeQuestion(id)} /> */}
+            <StyledIcon icon={faTrash} onClick={() => context(id)} />
+          </StyledIconsWrapper>
+        </StyledWrapper>
+      )}
+    </AppContext.Consumer>
   );
 };
 
