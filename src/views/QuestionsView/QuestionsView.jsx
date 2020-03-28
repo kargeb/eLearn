@@ -9,6 +9,7 @@ import Icon from '../../components/atoms/icons/Icon';
 import CategoryList from '../../components/molecules/categoryList/CategoryList';
 import plusIcon from '../../assets/images/PlusIcon.svg';
 import firebaseApp from '../../fbase';
+import AppContext from '../../context';
 
 const StyledAddQuestionButton = styled.div`
   position: fixed;
@@ -101,6 +102,7 @@ const QuestionsView = () => {
     // setQuestion([...newQuestions]);
     console.log(`id pytania:   ${pointedQuestions[0].id}`);
     console.log(`tresc pytania:   ${pointedQuestions[0].question}`);
+    console.log(pointedQuestions);
 
     // const toDelete = pointedQuestions[0].id.toString();
 
@@ -135,17 +137,14 @@ const QuestionsView = () => {
 
   return (
     <div>
-      {console.log(questions)}
-      <Link to="/">
-        <Logo small />
-      </Link>
-      <CategoryList
-        questions={questions}
-        categories={categories}
-        removeQuestion={removeQuestion}
-      />
+      <AppContext.Provider value={removeQuestion}>
+        {console.log(questions)}
+        <Link to="/">
+          <Logo small />
+        </Link>
+        <CategoryList questions={questions} categories={categories} />
 
-      {/* <ul>
+        {/* <ul>
         {questions.map((question, index) => (
           <Question
             key={question.id}
@@ -156,24 +155,25 @@ const QuestionsView = () => {
           />
         ))}
       </ul> */}
-      {!isFormVisible && (
-        <StyledAddQuestionButton>
-          <Button onClick={toggleFormVisibility}>
-            Dodaj
-            <Icon horizontalGap icon={plusIcon} />
-          </Button>
-        </StyledAddQuestionButton>
-      )}
-      {isFormVisible && (
-        <NewQuestionForm
-          categories={categories}
-          editMode={editMode}
-          toggleFormVisibility={toggleFormVisibility}
-          addNewQuestion={addNewQuestion}
-          defaultQuestion={editMode ? editingQuestion : defaultQuestion}
-          editQuestion={editQuestion}
-        />
-      )}
+        {!isFormVisible && (
+          <StyledAddQuestionButton>
+            <Button onClick={toggleFormVisibility}>
+              Dodaj
+              <Icon horizontalGap icon={plusIcon} />
+            </Button>
+          </StyledAddQuestionButton>
+        )}
+        {isFormVisible && (
+          <NewQuestionForm
+            categories={categories}
+            editMode={editMode}
+            toggleFormVisibility={toggleFormVisibility}
+            addNewQuestion={addNewQuestion}
+            defaultQuestion={editMode ? editingQuestion : defaultQuestion}
+            editQuestion={editQuestion}
+          />
+        )}
+      </AppContext.Provider>
     </div>
   );
 };
