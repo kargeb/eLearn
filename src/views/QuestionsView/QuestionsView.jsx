@@ -98,11 +98,25 @@ const QuestionsView = () => {
   };
 
   const removeQuestion = id => {
-    const pointedQuestions = questions.filter(question => question.id == id);
-    // setQuestion([...newQuestions]);
-    console.log(`id pytania:   ${pointedQuestions[0].id}`);
-    console.log(`tresc pytania:   ${pointedQuestions[0].question}`);
-    console.log(pointedQuestions);
+    const remainQuestions = questions.filter(question => question.id !== id);
+
+    console.log(questions);
+    console.log(remainQuestions);
+
+    const remainQuestionsStringyfied = JSON.stringify(remainQuestions);
+
+    firebaseApp
+      .collection('questionsString')
+      .doc('1')
+      .set({
+        all: remainQuestionsStringyfied
+      })
+      .then(function() {
+        console.log('Document written');
+      })
+      .catch(function(error) {
+        console.error('Error adding document: ', error);
+      });
 
     // const toDelete = pointedQuestions[0].id.toString();
 
