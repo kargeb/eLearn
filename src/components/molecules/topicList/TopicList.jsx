@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import QuestionList from '../questionList/QuestionList';
 
 const StyledWrapper = styled.div`
@@ -51,7 +52,7 @@ const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
   const handleClick = e => {
     const currentElement = e.target.id;
     if (open.includes(currentElement)) {
-      const newOpens = open.filter(item => item != currentElement);
+      const newOpens = open.filter(item => item !== currentElement);
       setOpen(newOpens);
     } else setOpen(prevState => [...prevState, currentElement]);
   };
@@ -60,11 +61,11 @@ const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
     <StyledContainer>
       {categoryTopics.map(topic => {
         const questionsFilteredByTopic = questionsFilteredByCategory.filter(
-          question => question.topic == topic
+          question => question.topic === topic
         );
 
         return (
-          <li>
+          <li key={topic}>
             <StyledWrapper onClick={handleClick} id={topic}>
               <StyledLabel>{topic}</StyledLabel>
               <StyledNumber>{questionsFilteredByTopic.length}</StyledNumber>
@@ -77,6 +78,11 @@ const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
       })}
     </StyledContainer>
   );
+};
+
+TopicList.propTypes = {
+  questionsFilteredByCategory: PropTypes.arrayOf(PropTypes.object).isRequired,
+  categoryTopics: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default TopicList;

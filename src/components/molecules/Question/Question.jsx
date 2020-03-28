@@ -42,45 +42,6 @@ const StyledAnswer = styled.div`
   font-size: 16px;
   padding: 10px;
   line-height: 36px;
-
-  /* &:hover {
-    background-color: blue;
-  } */
-`;
-
-const StyledNumberFiled = styled.div`
-  position: relative;
-  width: 40px;
-  height: 40px;
-  border-radius: 50px;
-  background-color: #f9f9f9;
-  margin: 0 15px 0 0;
-  text-align: center;
-  font-weight: bold;
-  font-size: 22px;
-  z-index: 2;
-`;
-
-const StyledCategoryFiled = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50px;
-  height: 29px;
-  color: ${props => {
-    switch (props.category) {
-      case 'HTML':
-        return 'red';
-      case 'JS':
-        return '#bcb649';
-      default:
-        return 'black';
-    }
-  }};
-  font-weight: bold;
-  border: 1px solid #ccc;
-  text-align: center;
-  font-size: 16px;
 `;
 
 const StyledSourceFiled = styled.div`
@@ -136,8 +97,8 @@ const getDatefromId = id => {
   return date.toLocaleDateString();
 };
 
-const Question = ({ item, index, removeQuestion, turnOnEditMode }) => {
-  const { question, answer, category, id, topic, source } = item;
+const Question = ({ item, removeQuestion, turnOnEditMode }) => {
+  const { question, answer, id, source } = item;
 
   return (
     <StyledWrapper>
@@ -151,29 +112,14 @@ const Question = ({ item, index, removeQuestion, turnOnEditMode }) => {
         <StyledDescription>1.1. Jakiś rozdział</StyledDescription>
       </StyledProperties>
       <StyledQuestion>
-        {/* <StyledNumberFiled>{index + 1}</StyledNumberFiled> */}
         <span>{question}</span>
       </StyledQuestion>
       <StyledAnswer>
         <span>{answer}</span>
-
-        {/* <button type="button" onClick={() => removeQuestion(id)}>
-          Usuń
-        </button>
-        <button type="button" onClick={() => turnOnEditMode(id)}>
-          Edytuj
-        </button> */}
-
-        {/* <StyledCategoryFiled category={category}>
-          <code>{category}</code>
-        </StyledCategoryFiled>
-        <StyledSubjectFiled>
-          <span>{topic}</span>
-        </StyledSubjectFiled> */}
       </StyledAnswer>
       <StyledIconsWrapper>
-        <StyledIcon icon={faPen} />
-        <StyledIcon icon={faTrash} />
+        <StyledIcon icon={faPen} onClick={() => removeQuestion(id)} />
+        <StyledIcon icon={faTrash} onClick={() => turnOnEditMode(id)} />
       </StyledIconsWrapper>
     </StyledWrapper>
   );
@@ -188,9 +134,13 @@ Question.propTypes = {
     topic: PropTypes.string.isRequired,
     source: PropTypes.string
   }).isRequired,
-  index: PropTypes.number.isRequired,
-  removeQuestion: PropTypes.func.isRequired,
-  turnOnEditMode: PropTypes.func.isRequired
+  removeQuestion: PropTypes.func,
+  turnOnEditMode: PropTypes.func
+};
+
+Question.defaultProps = {
+  removeQuestion: () => {},
+  turnOnEditMode: () => {}
 };
 
 export default Question;
