@@ -74,10 +74,10 @@ const StyledDescription = styled.div`
 
 const StyledIconsWrapper = styled.div`
   align-items: center;
+  flex-direction: column;
   background-color: #e5e6e5;
   width: 50px;
   display: flex;
-  flex-direction: column;
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`

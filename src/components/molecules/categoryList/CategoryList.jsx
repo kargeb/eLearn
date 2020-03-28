@@ -52,8 +52,6 @@ const CategoryList = ({ questions, categories }) => {
   const handleClick = e => {
     const currentElement = e.currentTarget.id;
 
-    console.log(currentElement);
-
     if (open.includes(currentElement)) {
       const newOpens = open.filter(item => item !== currentElement);
       setOpen(newOpens);

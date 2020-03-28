@@ -40,6 +40,7 @@ const StyledContainer = styled.ul`
 
 const StyledAccordion = styled.div`
   max-height: 0px;
+  /* height: ${({ height }) => height}; */
   overflow: hidden;
   transition: max-height 0.5s;
 
@@ -53,6 +54,8 @@ const StyledAccordion = styled.div`
 const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
   const [open, setOpen] = useState([]);
 
+  // const content = useRef(null);
+
   const handleClick = e => {
     const currentElement = e.currentTarget.id;
     if (open.includes(currentElement)) {
@@ -60,6 +63,10 @@ const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
       setOpen(newOpens);
     } else setOpen(prevState => [...prevState, currentElement]);
   };
+
+  // const getScrollHeight = scrollHeight => {
+  //   console.log(scrollHeight);
+  // };
 
   return (
     <StyledContainer>
@@ -75,7 +82,10 @@ const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
               <StyledNumber>{questionsFilteredByTopic.length}</StyledNumber>
             </StyledWrapper>
             <StyledAccordion open={open.includes(topic)}>
-              <QuestionList questionsToShow={questionsFilteredByTopic} />
+              <QuestionList
+                questionsToShow={questionsFilteredByTopic}
+                // getScrollHeight={getScrollHeight}
+              />
             </StyledAccordion>
           </li>
         );
