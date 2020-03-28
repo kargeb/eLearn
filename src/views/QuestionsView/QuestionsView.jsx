@@ -21,6 +21,7 @@ const QuestionsView = () => {
   const [isFormVisible, setFormVisibility] = useState(false);
   const [questions, setQuestion] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const [changesInDatabase, setChangesInDatabase] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
   const categories = [
     { name: 'JS', topics: ['Data types', 'Hooki', 'Tablice'] },
@@ -45,10 +46,12 @@ const QuestionsView = () => {
 
       getAllQuestionsFromServerAsString();
 
+      setChangesInDatabase(false);
+
       // return () => stopConnection();
     },
     // [isFormVisible]
-    []
+    [changesInDatabase]
   );
 
   const toggleFormVisibility = () => {
@@ -79,6 +82,7 @@ const QuestionsView = () => {
       .then(function() {
         console.log('Document written');
       })
+      .then(setChangesInDatabase(true))
       .catch(function(error) {
         console.error('Error adding document: ', error);
       });
@@ -114,6 +118,7 @@ const QuestionsView = () => {
       .then(function() {
         console.log('Document written');
       })
+      .then(setChangesInDatabase(true))
       .catch(function(error) {
         console.error('Error adding document: ', error);
       });
