@@ -118,8 +118,8 @@ const Question = ({ item, removeQuestion, turnOnEditMode }) => {
         <span>{answer}</span>
       </StyledAnswer>
       <StyledIconsWrapper>
-        <StyledIcon icon={faPen} onClick={() => removeQuestion(id)} />
-        <StyledIcon icon={faTrash} onClick={() => turnOnEditMode(id)} />
+        <StyledIcon icon={faPen} onClick={() => turnOnEditMode(id)} />
+        <StyledIcon icon={faTrash} onClick={() => removeQuestion(id)} />
       </StyledIconsWrapper>
     </StyledWrapper>
   );

@@ -46,7 +46,7 @@ const StyledAccordion = styled.div`
     `}
 `;
 
-const CategoryList = ({ questions, categories }) => {
+const CategoryList = ({ questions, categories, removeQuestion }) => {
   const [open, setOpen] = useState([]);
 
   const handleClick = e => {
@@ -74,6 +74,7 @@ const CategoryList = ({ questions, categories }) => {
 
             <StyledAccordion open={open.includes(category.name)}>
               <TopicList
+                removeQuestion={removeQuestion}
                 questionsFilteredByCategory={questionsFilteredByCategory}
                 categoryTopics={category.topics}
               />

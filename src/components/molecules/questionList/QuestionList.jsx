@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Question from '../Question/Question';
 
 // const QuestionList = ({ questionsToShow, getScrollHeight }) => {
-const QuestionList = ({ questionsToShow }) => {
+const QuestionList = ({ questionsToShow, removeQuestion }) => {
   const content = useRef(null);
 
   // useEffect(() => {
@@ -20,7 +20,11 @@ const QuestionList = ({ questionsToShow }) => {
     <ul ref={content}>
       {questionsToShow.map((question, index) => (
         <li key={question.id}>
-          <Question index={index} item={question} />
+          <Question
+            index={index}
+            item={question}
+            removeQuestion={removeQuestion}
+          />
         </li>
       ))}
     </ul>

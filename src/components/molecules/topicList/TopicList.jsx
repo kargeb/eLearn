@@ -51,7 +51,11 @@ const StyledAccordion = styled.div`
     `}
 `;
 
-const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
+const TopicList = ({
+  questionsFilteredByCategory,
+  categoryTopics,
+  removeQuestion
+}) => {
   const [open, setOpen] = useState([]);
 
   // const content = useRef(null);
@@ -83,6 +87,7 @@ const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
             </StyledWrapper>
             <StyledAccordion open={open.includes(topic)}>
               <QuestionList
+                removeQuestion={removeQuestion}
                 questionsToShow={questionsFilteredByTopic}
                 // getScrollHeight={getScrollHeight}
               />

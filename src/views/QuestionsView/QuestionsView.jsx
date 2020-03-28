@@ -99,17 +99,19 @@ const QuestionsView = () => {
   const removeQuestion = id => {
     const pointedQuestions = questions.filter(question => question.id == id);
     // setQuestion([...newQuestions]);
-    console.log(pointedQuestions[0].id);
+    console.log(`id pytania:   ${pointedQuestions[0].id}`);
+    console.log(`tresc pytania:   ${pointedQuestions[0].question}`);
 
-    const toDelete = pointedQuestions[0].id.toString();
+    // const toDelete = pointedQuestions[0].id.toString();
 
-    firebaseApp
-      .collection('questions')
-      .doc(toDelete)
-      .delete()
-      .then(function() {
-        console.log('Document successfully deleted!');
-      });
+    // firebaseApp
+    //   .collection('questions')
+    //   .doc(toDelete)
+    //   .delete()
+    //   .then(function() {
+    //     console.log('Document successfully deleted!');
+    //   });
+
     // .then(getQuestions())
     // .catch(function(error) {
     //   console.error('Error removing document: ', error);
@@ -137,7 +139,11 @@ const QuestionsView = () => {
       <Link to="/">
         <Logo small />
       </Link>
-      <CategoryList questions={questions} categories={categories} />
+      <CategoryList
+        questions={questions}
+        categories={categories}
+        removeQuestion={removeQuestion}
+      />
 
       {/* <ul>
         {questions.map((question, index) => (
