@@ -10,6 +10,10 @@ const StyledWrapper = styled.div`
   display: flex;
   background-color: #e5e6e5;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledLabel = styled.div`
@@ -46,7 +50,9 @@ const CategoryList = ({ questions, categories }) => {
   const [open, setOpen] = useState([]);
 
   const handleClick = e => {
-    const currentElement = e.target.id;
+    const currentElement = e.currentTarget.id;
+
+    console.log(currentElement);
 
     if (open.includes(currentElement)) {
       const newOpens = open.filter(item => item !== currentElement);
