@@ -9,6 +9,14 @@ const StyledWrapper = styled.div`
   display: flex;
 `;
 
+const StyledProperties = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 250px;
+  background-color: white;
+  border: 1px solid rgba(196, 196, 196, 0.2);
+`;
+
 const StyledQuestion = styled.div`
   display: flex;
   white-space: pre-wrap;
@@ -85,22 +93,29 @@ const StyledSubjectFiled = styled.div`
 `;
 
 const StyledSourceFiled = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 75%;
-  min-width: 50px;
-  height: 29px;
+  width: 48%;
+  line-height: 25px;
+  height: 50%;
   border: 1px solid #ccc;
   text-align: center;
+  font-style: italic;
   font-size: 12px;
 `;
 
 const StyledDateFiled = styled.div`
-  position: absolute;
-  top: 0;
-  left: 75%;
-  min-width: 50px;
-  height: 29px;
+  width: 50%;
+  height: 50%;
+  line-height: 25px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-style: italic;
+  font-size: 12px;
+`;
+
+const StyledDescription = styled.div`
+  width: 100%;
+  height: 50%;
+  line-height: 25px;
   border: 1px solid #ccc;
   text-align: center;
   font-style: italic;
@@ -118,6 +133,15 @@ const Question = ({ item, index, removeQuestion, turnOnEditMode }) => {
 
   return (
     <StyledWrapper>
+      <StyledProperties>
+        <StyledSourceFiled>
+          <span>{source}</span>
+        </StyledSourceFiled>
+        <StyledDateFiled>
+          <span>{getDatefromId(id)}</span>
+        </StyledDateFiled>
+        <StyledDescription>1.1. Jakiś rozdział</StyledDescription>
+      </StyledProperties>
       <StyledQuestion>
         <StyledNumberFiled>{index + 1}</StyledNumberFiled>
         <span>{question}</span>
@@ -137,12 +161,6 @@ const Question = ({ item, index, removeQuestion, turnOnEditMode }) => {
         <StyledSubjectFiled>
           <span>{topic}</span>
         </StyledSubjectFiled>
-        <StyledSourceFiled>
-          <span>{source}</span>
-        </StyledSourceFiled>
-        <StyledDateFiled>
-          <span>{getDatefromId(id)}</span>
-        </StyledDateFiled>
       </StyledAnswer>
     </StyledWrapper>
   );

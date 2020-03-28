@@ -1,19 +1,13 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import Question from '../Question/Question';
 import QuestionList from '../questionList/QuestionList';
 
 const StyledWrapper = styled.div`
   margin: 10px auto;
-  /* width: calc(80vw - 150px); */
   min-height: 50px;
   display: flex;
   background-color: #e5e6e5;
   align-items: center;
-`;
-
-const StyledTopicWrapper = styled(StyledWrapper)`
-  margin-left: 250px;
 `;
 
 const StyledLabel = styled.div`

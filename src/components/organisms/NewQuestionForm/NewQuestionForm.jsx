@@ -9,8 +9,6 @@ import Label from '../../atoms/label/Label';
 import TextArea from '../../atoms/textarea/TextArea';
 import useDropdown from '../../hooks/useDropdown';
 
-// import useInput from '../../atoms/input/useInput';
-
 const StyledInputWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -96,7 +94,6 @@ const NewQuestionForm = ({
   const [answer, setAnswer] = useState(defaultQuestion.answer);
   const [emptyFieldsPrompt, setEmptyFildsPrompt] = useState(false);
 
-  // const categories = ['JS', 'HTML', 'GIT', 'React'];
   const topics = ['Funkcje', 'Tablice', 'Hooki', 'Komendy', 'Other'];
   const sources = ['Samuraj', 'ModernJS', 'Roman', 'Doc', 'Other'];
 
