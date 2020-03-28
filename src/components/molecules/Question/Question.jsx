@@ -7,6 +7,7 @@ const StyledWrapper = styled.div`
   width: 80%;
   min-height: 50px;
   display: flex;
+  font-size: 18px;
 `;
 
 const StyledProperties = styled.div`
@@ -14,18 +15,17 @@ const StyledProperties = styled.div`
   flex-wrap: wrap;
   width: 250px;
   background-color: white;
-  border: 1px solid rgba(196, 196, 196, 0.2);
 `;
 
 const StyledQuestion = styled.div`
   display: flex;
   white-space: pre-wrap;
-  background-color: rgba(85, 255, 5, 0.21);
+  background-color: rgba(196, 196, 196, 0.2);
   width: 40%;
   padding: 10px;
   font-family: Roboto;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 36px;
 `;
 
@@ -39,11 +39,11 @@ const StyledAnswer = styled.div`
   font-weight: 400;
   font-size: 16px;
   padding: 10px;
-  line-height: 26px;
+  line-height: 36px;
 
-  &:hover {
+  /* &:hover {
     background-color: blue;
-  }
+  } */
 `;
 
 const StyledNumberFiled = styled.div`
@@ -93,20 +93,20 @@ const StyledSubjectFiled = styled.div`
 `;
 
 const StyledSourceFiled = styled.div`
-  width: 48%;
+  background-color: rgba(196, 196, 196, 0.2);
+  width: 50%;
   line-height: 25px;
   height: 50%;
-  border: 1px solid #ccc;
   text-align: center;
-  font-style: italic;
-  font-size: 12px;
+  font-weight: bold;
+  font-size: 14px;
 `;
 
 const StyledDateFiled = styled.div`
+  background-color: rgba(196, 196, 196, 0.2);
   width: 50%;
   height: 50%;
   line-height: 25px;
-  border: 1px solid #ccc;
   text-align: center;
   font-style: italic;
   font-size: 12px;
@@ -116,9 +116,8 @@ const StyledDescription = styled.div`
   width: 100%;
   height: 50%;
   line-height: 25px;
-  border: 1px solid #ccc;
   text-align: center;
-  font-style: italic;
+  /* font-style: italic; */
   font-size: 12px;
 `;
 
@@ -143,24 +142,24 @@ const Question = ({ item, index, removeQuestion, turnOnEditMode }) => {
         <StyledDescription>1.1. Jakiś rozdział</StyledDescription>
       </StyledProperties>
       <StyledQuestion>
-        <StyledNumberFiled>{index + 1}</StyledNumberFiled>
+        {/* <StyledNumberFiled>{index + 1}</StyledNumberFiled> */}
         <span>{question}</span>
       </StyledQuestion>
       <StyledAnswer>
-        <button type="button" onClick={() => removeQuestion(id)}>
+        {/* <button type="button" onClick={() => removeQuestion(id)}>
           Usuń
         </button>
         <button type="button" onClick={() => turnOnEditMode(id)}>
           Edytuj
-        </button>
+        </button> */}
         <span>{answer}</span>
 
-        <StyledCategoryFiled category={category}>
+        {/* <StyledCategoryFiled category={category}>
           <code>{category}</code>
         </StyledCategoryFiled>
         <StyledSubjectFiled>
           <span>{topic}</span>
-        </StyledSubjectFiled>
+        </StyledSubjectFiled> */}
       </StyledAnswer>
     </StyledWrapper>
   );
