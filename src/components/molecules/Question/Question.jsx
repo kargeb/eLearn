@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const StyledWrapper = styled.div`
   margin: 10px auto;
@@ -81,17 +83,6 @@ const StyledCategoryFiled = styled.div`
   font-size: 16px;
 `;
 
-const StyledSubjectFiled = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  min-width: 50px;
-  height: 29px;
-  font-weight: bold;
-  text-align: center;
-  font-size: 12px;
-`;
-
 const StyledSourceFiled = styled.div`
   background-color: rgba(196, 196, 196, 0.2);
   width: 50%;
@@ -117,8 +108,26 @@ const StyledDescription = styled.div`
   height: 50%;
   line-height: 25px;
   text-align: center;
-  /* font-style: italic; */
   font-size: 12px;
+`;
+
+const StyledIconsWrapper = styled.div`
+  align-items: center;
+  background-color: #e5e6e5;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledIcon = styled(FontAwesomeIcon)`
+  color: grey;
+  margin: 10px 5px 10px 10px;
+  font-size: 30px;
+
+  &:hover {
+    color: #3de123;
+    cursor: pointer;
+  }
 `;
 
 const getDatefromId = id => {
@@ -146,13 +155,14 @@ const Question = ({ item, index, removeQuestion, turnOnEditMode }) => {
         <span>{question}</span>
       </StyledQuestion>
       <StyledAnswer>
+        <span>{answer}</span>
+
         {/* <button type="button" onClick={() => removeQuestion(id)}>
           Usuń
         </button>
         <button type="button" onClick={() => turnOnEditMode(id)}>
           Edytuj
         </button> */}
-        <span>{answer}</span>
 
         {/* <StyledCategoryFiled category={category}>
           <code>{category}</code>
@@ -161,6 +171,10 @@ const Question = ({ item, index, removeQuestion, turnOnEditMode }) => {
           <span>{topic}</span>
         </StyledSubjectFiled> */}
       </StyledAnswer>
+      <StyledIconsWrapper>
+        <StyledIcon icon={faPen} />
+        <StyledIcon icon={faTrash} />
+      </StyledIconsWrapper>
     </StyledWrapper>
   );
 };
