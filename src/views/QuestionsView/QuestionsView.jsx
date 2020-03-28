@@ -22,33 +22,11 @@ const QuestionsView = () => {
   const [editMode, setEditMode] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
   const categories = [
-    { name: 'JS', topics: ['Data types', 'Hooki'] },
+    { name: 'JS', topics: ['Data types', 'Hooki', 'Tablice'] },
     { name: 'HTML', topics: ['Browser', 'Komendy'] },
     { name: 'GIT', topics: ['Gałęzie', 'Commends'] },
-    { name: 'React', topics: ['Tablice'] }
+    { name: 'React', topics: ['Tablice', 'Other'] }
   ];
-
-  // const getQuestions = () => {
-  //   const connection = firebaseApp
-  //     .collection('questions')
-  //     // .orderBy('id')
-  //     .get()
-  //     .then(querySnapshot => {
-  //       const data = [];
-
-  //       querySnapshot.forEach(doc => {
-  //         console.log(doc.data());
-  //         data.push(doc.data());
-  //       });
-  //       return data;
-  //     })
-  //     .then(data => {
-  //       console.log('przed setQestions w useEffect');
-  //       setQuestion(data);
-  //     });
-
-  //   return connection;
-  // };
 
   const getAllQuestionsFromServerAsString = () => {
     firebaseApp
@@ -64,19 +42,7 @@ const QuestionsView = () => {
     () => {
       console.log('jestes w useEffect');
 
-      // const stopConnection = getQuestions();
-
-      // const allQuestionInString = JSON.stringify(data);
-      // console.log(allQuestionInString);
-
-      // const allQuestionsInJSON = JSON.parse(allQuestionInString);
-      // console.log(allQuestionsInJSON);
-
-      // setQuestion(allQuestionsInJSON);
-
       getAllQuestionsFromServerAsString();
-
-      // console.log(`stopconnection = ${stopConnection}`);
 
       // return () => stopConnection();
     },
@@ -167,6 +133,7 @@ const QuestionsView = () => {
 
   return (
     <div>
+      {console.log(questions)}
       <Link to="/">
         <Logo small />
       </Link>

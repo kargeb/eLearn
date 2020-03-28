@@ -94,12 +94,16 @@ const NewQuestionForm = ({
   const [answer, setAnswer] = useState(defaultQuestion.answer);
   const [emptyFieldsPrompt, setEmptyFildsPrompt] = useState(false);
 
+  console.log();
+
   const topics = ['Funkcje', 'Tablice', 'Hooki', 'Komendy', 'Other'];
   const sources = ['Samuraj', 'ModernJS', 'Roman', 'Doc', 'Other'];
+  const separatedCategories = categories.map(item => item.name);
+  console.log(separatedCategories);
 
   const [category, CategoryDropdown, setCategory] = useDropdown(
     'Kategoria',
-    categories,
+    separatedCategories,
     defaultQuestion.category
   );
   const [topic, TopicDropdown, setTopic] = useDropdown(
