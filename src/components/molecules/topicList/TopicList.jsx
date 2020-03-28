@@ -1,19 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
-import Question from '../Question/Question';
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import QuestionList from '../questionList/QuestionList';
 
 const StyledWrapper = styled.div`
-  /* margin: 10px auto 10px 250px; */
-  /* width: calc(80vw - 150px); */
+  margin: 10px auto;
   min-height: 50px;
   display: flex;
   background-color: #e5e6e5;
   align-items: center;
-`;
-
-const StyledTopicWrapper = styled(StyledWrapper)`
-  margin-left: 250px;
 `;
 
 const StyledLabel = styled.div`
@@ -39,24 +34,55 @@ const StyledContainer = styled.ul`
   margin-left: 250px;
 `;
 
-const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => (
-  <StyledContainer>
-    {categoryTopics.map(topic => {
-      const questionsFilteredByTopic = questionsFilteredByCategory.filter(
-        question => question.topic == topic
-      );
+const StyledAccordion = styled.div`
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.5s;
 
-      return (
-        <li>
-          <StyledWrapper>
-            <StyledLabel>{topic}</StyledLabel>
-            <StyledNumber>{questionsFilteredByTopic.length}</StyledNumber>
-          </StyledWrapper>
-          <QuestionList questionsToShow={questionsFilteredByTopic} />
-        </li>
-      );
-    })}
-  </StyledContainer>
-);
+  ${({ open }) =>
+    open &&
+    css`
+      max-height: 1000px;
+    `}
+`;
+
+const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
+  const [open, setOpen] = useState([]);
+
+  const handleClick = e => {
+    const currentElement = e.target.id;
+    if (open.includes(currentElement)) {
+      const newOpens = open.filter(item => item !== currentElement);
+      setOpen(newOpens);
+    } else setOpen(prevState => [...prevState, currentElement]);
+  };
+
+  return (
+    <StyledContainer>
+      {categoryTopics.map(topic => {
+        const questionsFilteredByTopic = questionsFilteredByCategory.filter(
+          question => question.topic === topic
+        );
+
+        return (
+          <li key={topic}>
+            <StyledWrapper onClick={handleClick} id={topic}>
+              <StyledLabel>{topic}</StyledLabel>
+              <StyledNumber>{questionsFilteredByTopic.length}</StyledNumber>
+            </StyledWrapper>
+            <StyledAccordion open={open.includes(topic)}>
+              <QuestionList questionsToShow={questionsFilteredByTopic} />
+            </StyledAccordion>
+          </li>
+        );
+      })}
+    </StyledContainer>
+  );
+};
+
+TopicList.propTypes = {
+  questionsFilteredByCategory: PropTypes.arrayOf(PropTypes.object).isRequired,
+  categoryTopics: PropTypes.arrayOf(PropTypes.string).isRequired
+};
 
 export default TopicList;
