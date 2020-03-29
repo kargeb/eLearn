@@ -98,7 +98,7 @@ const getDatefromId = id => {
   return date.toLocaleDateString();
 };
 
-const Question = ({ item, turnOnEditMode }) => {
+const Question = ({ item }) => {
   const { question, answer, id, source } = item;
 
   return (
@@ -144,12 +144,7 @@ Question.propTypes = {
     id: PropTypes.number.isRequired,
     topic: PropTypes.string.isRequired,
     source: PropTypes.string
-  }).isRequired,
-  turnOnEditMode: PropTypes.func
-};
-
-Question.defaultProps = {
-  turnOnEditMode: () => {}
+  }).isRequired
 };
 
 export default Question;

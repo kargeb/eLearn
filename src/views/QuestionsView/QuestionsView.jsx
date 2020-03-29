@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../../components/atoms/logo/Logo';
-import data from '../../assets/dummyData/questions';
 import Button from '../../components/atoms/buttons/Button';
 import NewQuestionForm from '../../components/organisms/NewQuestionForm/NewQuestionForm';
 import Icon from '../../components/atoms/icons/Icon';
@@ -74,11 +73,6 @@ const QuestionsView = () => {
   };
 
   const editQuestion = editedQuestion => {
-    console.log('ol questions');
-    console.log(questions);
-    console.log('qeustion edited: ');
-    console.log(editedQuestion);
-
     const newQuestions = questions.map(question => {
       if (question.id === editedQuestion.id) {
         const edited = { ...editedQuestion };
@@ -86,14 +80,10 @@ const QuestionsView = () => {
       }
       return question;
     });
-
     console.log('newQuestions: ');
     console.log(newQuestions);
 
     const allQuestionsStringyfied = JSON.stringify(newQuestions);
-
-    console.log('newQuestions stringyfied: ');
-    console.log(allQuestionsStringyfied);
 
     firebaseApp
       .collection('questionsString')
@@ -109,7 +99,6 @@ const QuestionsView = () => {
         console.error('Error adding document: ', error);
       });
 
-    // setQuestion(newQuestions);
     setEditMode(false);
   };
 
@@ -136,12 +125,7 @@ const QuestionsView = () => {
   const turnOnEditMode = id => {
     setEditMode(true);
     const pointedQuestion = questions.filter(question => question.id === id);
-
-    console.log('pointed question: ');
-    console.log(pointedQuestion[0]);
     setEditingQuestion(pointedQuestion[0]);
-    console.log(`editing quesiotn ${editingQuestion}`);
-
     toggleFormVisibility();
   };
 
