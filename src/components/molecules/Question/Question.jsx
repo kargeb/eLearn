@@ -123,7 +123,10 @@ const Question = ({ item, turnOnEditMode }) => {
           <StyledIconsWrapper>
             <StyledIcon icon={faPen} onClick={() => turnOnEditMode(id)} />
             {/* <StyledIcon icon={faTrash} onClick={() => removeQuestion(id)} /> */}
-            <StyledIcon icon={faTrash} onClick={() => context(id)} />
+            <StyledIcon
+              icon={faTrash}
+              onClick={() => context.removeQuestion(id)}
+            />
           </StyledIconsWrapper>
         </StyledWrapper>
       )}
