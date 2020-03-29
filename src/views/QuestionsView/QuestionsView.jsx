@@ -74,6 +74,11 @@ const QuestionsView = () => {
   };
 
   const editQuestion = editedQuestion => {
+    console.log('ol questions');
+    console.log(questions);
+    console.log('qeustion edited: ');
+    console.log(editedQuestion);
+
     const newQuestions = questions.map(question => {
       if (question.id === editedQuestion.id) {
         const edited = { ...editedQuestion };
@@ -82,7 +87,29 @@ const QuestionsView = () => {
       return question;
     });
 
-    setQuestion(newQuestions);
+    console.log('newQuestions: ');
+    console.log(newQuestions);
+
+    const allQuestionsStringyfied = JSON.stringify(newQuestions);
+
+    console.log('newQuestions stringyfied: ');
+    console.log(allQuestionsStringyfied);
+
+    firebaseApp
+      .collection('questionsString')
+      .doc('1')
+      .set({
+        all: allQuestionsStringyfied
+      })
+      .then(function() {
+        console.log('Document written');
+      })
+      .then(setChangesInDatabase(true))
+      .catch(function(error) {
+        console.error('Error adding document: ', error);
+      });
+
+    // setQuestion(newQuestions);
     setEditMode(false);
   };
 
@@ -109,7 +136,12 @@ const QuestionsView = () => {
   const turnOnEditMode = id => {
     setEditMode(true);
     const pointedQuestion = questions.filter(question => question.id === id);
+
+    console.log('pointed question: ');
+    console.log(pointedQuestion[0]);
     setEditingQuestion(pointedQuestion[0]);
+    console.log(`editing quesiotn ${editingQuestion}`);
+
     toggleFormVisibility();
   };
 
@@ -123,7 +155,7 @@ const QuestionsView = () => {
 
   const context = {
     removeQuestion,
-    editQuestion
+    turnOnEditMode
   };
 
   return (
@@ -145,6 +177,7 @@ const QuestionsView = () => {
         {isFormVisible && (
           <NewQuestionForm
             categories={categories}
+            setEditMode={setEditMode}
             editMode={editMode}
             toggleFormVisibility={toggleFormVisibility}
             addNewQuestion={addNewQuestion}

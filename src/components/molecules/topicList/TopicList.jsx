@@ -76,9 +76,9 @@ const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
         );
 
         return (
-          <>
+          <li key={topic}>
             {questionsFilteredByTopic.length ? (
-              <li key={topic}>
+              <>
                 <StyledWrapper onClick={handleClick} id={topic}>
                   <StyledLabel>{topic}</StyledLabel>
                   <StyledNumber>{questionsFilteredByTopic.length}</StyledNumber>
@@ -89,11 +89,11 @@ const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
                     // getScrollHeight={getScrollHeight}
                   />
                 </StyledAccordion>
-              </li>
+              </>
             ) : (
               <span> </span>
             )}
-          </>
+          </li>
         );
       })}
     </StyledContainer>
