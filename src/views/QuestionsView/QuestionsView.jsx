@@ -40,38 +40,23 @@ const QuestionsView = () => {
       .then(allQuestionsJSON => setQuestion(allQuestionsJSON));
   };
 
-  useEffect(
-    () => {
-      console.log('jestes w useEffect');
+  useEffect(() => {
+    console.log('jestes w useEffect');
 
-      getAllQuestionsFromServerAsString();
+    getAllQuestionsFromServerAsString();
 
-      setChangesInDatabase(false);
+    setChangesInDatabase(false);
 
-      // return () => stopConnection();
-    },
-    // [isFormVisible]
-    [changesInDatabase]
-  );
+    // return () => stopConnection();
+  }, [changesInDatabase]);
 
   const toggleFormVisibility = () => {
     setFormVisibility(!isFormVisible);
   };
 
   const addNewQuestion = newQuestion => {
-    console.log(newQuestion);
-
-    // setQuestion(prevState => [...prevState, newQuestion]);
-
-    console.log(questions);
-
     const allQuestions = [...questions, newQuestion];
-
-    console.log(allQuestions);
-
     const allQuestionsStringyfied = JSON.stringify(allQuestions);
-
-    console.log(allQuestionsStringyfied);
 
     firebaseApp
       .collection('questionsString')
@@ -89,6 +74,11 @@ const QuestionsView = () => {
   };
 
   const editQuestion = editedQuestion => {
+    console.log('ol questions');
+    console.log(questions);
+    console.log('qeustion edited: ');
+    console.log(editedQuestion);
+
     const newQuestions = questions.map(question => {
       if (question.id === editedQuestion.id) {
         const edited = { ...editedQuestion };
@@ -97,15 +87,34 @@ const QuestionsView = () => {
       return question;
     });
 
-    setQuestion(newQuestions);
+    console.log('newQuestions: ');
+    console.log(newQuestions);
+
+    const allQuestionsStringyfied = JSON.stringify(newQuestions);
+
+    console.log('newQuestions stringyfied: ');
+    console.log(allQuestionsStringyfied);
+
+    firebaseApp
+      .collection('questionsString')
+      .doc('1')
+      .set({
+        all: allQuestionsStringyfied
+      })
+      .then(function() {
+        console.log('Document written');
+      })
+      .then(setChangesInDatabase(true))
+      .catch(function(error) {
+        console.error('Error adding document: ', error);
+      });
+
+    // setQuestion(newQuestions);
     setEditMode(false);
   };
 
   const removeQuestion = id => {
     const remainQuestions = questions.filter(question => question.id !== id);
-
-    console.log(questions);
-    console.log(remainQuestions);
 
     const remainQuestionsStringyfied = JSON.stringify(remainQuestions);
 
@@ -122,27 +131,17 @@ const QuestionsView = () => {
       .catch(function(error) {
         console.error('Error adding document: ', error);
       });
-
-    // const toDelete = pointedQuestions[0].id.toString();
-
-    // firebaseApp
-    //   .collection('questions')
-    //   .doc(toDelete)
-    //   .delete()
-    //   .then(function() {
-    //     console.log('Document successfully deleted!');
-    //   });
-
-    // .then(getQuestions())
-    // .catch(function(error) {
-    //   console.error('Error removing document: ', error);
-    // });
   };
 
   const turnOnEditMode = id => {
     setEditMode(true);
     const pointedQuestion = questions.filter(question => question.id === id);
+
+    console.log('pointed question: ');
+    console.log(pointedQuestion[0]);
     setEditingQuestion(pointedQuestion[0]);
+    console.log(`editing quesiotn ${editingQuestion}`);
+
     toggleFormVisibility();
   };
 
@@ -154,26 +153,19 @@ const QuestionsView = () => {
     source: ''
   };
 
+  const context = {
+    removeQuestion,
+    turnOnEditMode
+  };
+
   return (
     <div>
-      <AppContext.Provider value={removeQuestion}>
+      <AppContext.Provider value={context}>
         {console.log(questions)}
         <Link to="/">
           <Logo small />
         </Link>
         <CategoryList questions={questions} categories={categories} />
-
-        {/* <ul>
-        {questions.map((question, index) => (
-          <Question
-            key={question.id}
-            index={index}
-            item={question}
-            removeQuestion={removeQuestion}
-            turnOnEditMode={turnOnEditMode}
-          />
-        ))}
-      </ul> */}
         {!isFormVisible && (
           <StyledAddQuestionButton>
             <Button onClick={toggleFormVisibility}>
@@ -185,6 +177,7 @@ const QuestionsView = () => {
         {isFormVisible && (
           <NewQuestionForm
             categories={categories}
+            setEditMode={setEditMode}
             editMode={editMode}
             toggleFormVisibility={toggleFormVisibility}
             addNewQuestion={addNewQuestion}

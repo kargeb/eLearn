@@ -85,6 +85,7 @@ const StyledPrompt = styled.span`
 const NewQuestionForm = ({
   categories,
   editMode,
+  setEditMode,
   toggleFormVisibility,
   addNewQuestion,
   defaultQuestion,
@@ -169,6 +170,11 @@ const NewQuestionForm = ({
     }
   };
 
+  const handleCancel = () => {
+    toggleFormVisibility();
+    setEditMode(false);
+  };
+
   return (
     <div>
       <StyledBackground />
@@ -210,12 +216,12 @@ const NewQuestionForm = ({
               <Icon horizontalGap icon={confirmIcon} />
             </StyledAddButton>
           )}
-          {!editMode && (
-            <StyledCancelButton onClick={toggleFormVisibility} type="button">
-              Porzuć
-              <Icon horizontalGap icon={cancelIcon} />
-            </StyledCancelButton>
-          )}
+          {/* {!editMode && ( */}
+          <StyledCancelButton onClick={handleCancel} type="button">
+            Porzuć
+            <Icon horizontalGap icon={cancelIcon} />
+          </StyledCancelButton>
+          {/* )} */}
         </StyledButtonWrapper>
         {emptyFieldsPrompt && <StyledPrompt>Są puste pola!</StyledPrompt>}
       </StyledFormWrapper>

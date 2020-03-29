@@ -121,9 +121,14 @@ const Question = ({ item, turnOnEditMode }) => {
             <span>{answer}</span>
           </StyledAnswer>
           <StyledIconsWrapper>
-            <StyledIcon icon={faPen} onClick={() => turnOnEditMode(id)} />
-            {/* <StyledIcon icon={faTrash} onClick={() => removeQuestion(id)} /> */}
-            <StyledIcon icon={faTrash} onClick={() => context(id)} />
+            <StyledIcon
+              icon={faPen}
+              onClick={() => context.turnOnEditMode(id)}
+            />
+            <StyledIcon
+              icon={faTrash}
+              onClick={() => context.removeQuestion(id)}
+            />
           </StyledIconsWrapper>
         </StyledWrapper>
       )}
@@ -140,12 +145,10 @@ Question.propTypes = {
     topic: PropTypes.string.isRequired,
     source: PropTypes.string
   }).isRequired,
-  removeQuestion: PropTypes.func,
   turnOnEditMode: PropTypes.func
 };
 
 Question.defaultProps = {
-  removeQuestion: () => {},
   turnOnEditMode: () => {}
 };
 
