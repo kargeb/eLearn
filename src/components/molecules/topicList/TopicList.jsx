@@ -77,16 +77,22 @@ const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
 
         return (
           <li key={topic}>
-            <StyledWrapper onClick={handleClick} id={topic}>
-              <StyledLabel>{topic}</StyledLabel>
-              <StyledNumber>{questionsFilteredByTopic.length}</StyledNumber>
-            </StyledWrapper>
-            <StyledAccordion open={open.includes(topic)}>
-              <QuestionList
-                questionsToShow={questionsFilteredByTopic}
-                // getScrollHeight={getScrollHeight}
-              />
-            </StyledAccordion>
+            {questionsFilteredByTopic.length ? (
+              <>
+                <StyledWrapper onClick={handleClick} id={topic}>
+                  <StyledLabel>{topic}</StyledLabel>
+                  <StyledNumber>{questionsFilteredByTopic.length}</StyledNumber>
+                </StyledWrapper>
+                <StyledAccordion open={open.includes(topic)}>
+                  <QuestionList
+                    questionsToShow={questionsFilteredByTopic}
+                    // getScrollHeight={getScrollHeight}
+                  />
+                </StyledAccordion>
+              </>
+            ) : (
+              <span> </span>
+            )}
           </li>
         );
       })}

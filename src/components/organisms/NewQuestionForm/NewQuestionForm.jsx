@@ -85,6 +85,7 @@ const StyledPrompt = styled.span`
 const NewQuestionForm = ({
   categories,
   editMode,
+  setEditMode,
   toggleFormVisibility,
   addNewQuestion,
   defaultQuestion,
@@ -94,12 +95,16 @@ const NewQuestionForm = ({
   const [answer, setAnswer] = useState(defaultQuestion.answer);
   const [emptyFieldsPrompt, setEmptyFildsPrompt] = useState(false);
 
+  console.log();
+
   const topics = ['Funkcje', 'Tablice', 'Hooki', 'Komendy', 'Other'];
   const sources = ['Samuraj', 'ModernJS', 'Roman', 'Doc', 'Other'];
+  const separatedCategories = categories.map(item => item.name);
+  console.log(separatedCategories);
 
   const [category, CategoryDropdown, setCategory] = useDropdown(
     'Kategoria',
-    categories,
+    separatedCategories,
     defaultQuestion.category
   );
   const [topic, TopicDropdown, setTopic] = useDropdown(
@@ -165,6 +170,11 @@ const NewQuestionForm = ({
     }
   };
 
+  const handleCancel = () => {
+    toggleFormVisibility();
+    setEditMode(false);
+  };
+
   return (
     <div>
       <StyledBackground />
@@ -206,12 +216,12 @@ const NewQuestionForm = ({
               <Icon horizontalGap icon={confirmIcon} />
             </StyledAddButton>
           )}
-          {!editMode && (
-            <StyledCancelButton onClick={toggleFormVisibility} type="button">
-              Porzuć
-              <Icon horizontalGap icon={cancelIcon} />
-            </StyledCancelButton>
-          )}
+          {/* {!editMode && ( */}
+          <StyledCancelButton onClick={handleCancel} type="button">
+            Porzuć
+            <Icon horizontalGap icon={cancelIcon} />
+          </StyledCancelButton>
+          {/* )} */}
         </StyledButtonWrapper>
         {emptyFieldsPrompt && <StyledPrompt>Są puste pola!</StyledPrompt>}
       </StyledFormWrapper>
