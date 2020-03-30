@@ -30,13 +30,145 @@ const QuestionsView = () => {
   ];
 
   const getAllQuestionsFromServerAsString = () => {
+    // const dbData = {
+    //   categories: [
+    //     {
+    //       name: 'JS',
+    //       topics: ['Data types', 'Hooki', 'Tablice', 'PIES']
+    //     },
+    //     {
+    //       name: 'HTML',
+    //       topics: ['Browser', 'Komendy']
+    //     },
+    //     {
+    //       name: 'GIT',
+    //       topics: ['Gałęzie', 'Commends']
+    //     },
+    //     {
+    //       name: 'React',
+    //       topics: ['Tablice', 'Other']
+    //     }
+    //   ],
+    //   questions: [
+    //     {
+    //       question: 'jak otworzyc pusta strone w chrome',
+    //       answer: 'about:blank',
+    //       category: 'HTML',
+    //       topic: 'Browser',
+    //       source: 'samuraj',
+    //       id: 1582808702000
+    //     },
+    //     {
+    //       question: 'efekt poelcenia: typeof null',
+    //       answer: 'object - oficjlany błąd JSowy, NULL jest typu NULL',
+    //       category: 'JS',
+    //       topic: 'Data types',
+    //       source: 'samuraj',
+    //       id: 1582808703000
+    //     },
+    //     {
+    //       question: 'Co to master',
+    //       answer:
+    //         'Domyślan zawza pierwszej gałęzi repo gita, NIE POWINNO SIĘ JEJ ZMINIAC',
+    //       category: 'GIT',
+    //       topic: 'Gałęzie',
+    //       source: 'devstyle',
+    //       id: 1582808905000
+    //     },
+    //     {
+    //       question: 'jakis nowy cos',
+    //       answer: 'react cos cowkolei',
+    //       category: 'React',
+    //       topic: 'Tablice',
+    //       source: 'ModernJS',
+    //       id: 1585215341329
+    //     },
+    //     {
+    //       question: 'nowe cos',
+    //       answer: 'cos cos',
+    //       category: 'JS',
+    //       topic: 'Tablice',
+    //       source: 'Samuraj',
+    //       id: 1585407115966
+    //     },
+    //     {
+    //       question: 'PIESSSSS',
+    //       answer: 'CZOSZSZ',
+    //       category: 'HTML',
+    //       topic: 'Komendy',
+    //       source: 'Samuraj',
+    //       id: 1585464514834
+    //     },
+    //     {
+    //       question: 'DO JS',
+    //       answer: 'DO TABLIC',
+    //       category: 'JS',
+    //       topic: 'Tablice',
+    //       source: 'ModernJS',
+    //       id: 1585465262639
+    //     },
+    //     {
+    //       question: 'sdf',
+    //       answer: 'sdf',
+    //       category: 'HTML',
+    //       topic: 'Tablice',
+    //       source: 'Samuraj',
+    //       id: 1585462902970
+    //     },
+    //     {
+    //       question: 'pies',
+    //       answer: 'hał',
+    //       category: 'HTML',
+    //       topic: 'Komendy',
+    //       source: 'Doc',
+    //       id: 1585463086543
+    //     }
+    //   ]
+    // };
+
+    // console.log(dbData);
+
+    // const stringed = JSON.stringify(dbData);
+
+    // console.log(stringed);
+
+    // const parsed = JSON.parse(stringed);
+
+    // console.log(parsed);
+
+    // console.log(JSON.parse(stringed)
+
     firebaseApp
       .collection('questionsString')
       .doc('1')
       .get()
-      .then(doc => doc.data().all)
-      .then(allQuestions => JSON.parse(allQuestions))
-      .then(allQuestionsJSON => setQuestion(allQuestionsJSON));
+      .then(doc => doc.data().categoriesAndQuestions)
+      .then(dbQuestions =>
+        // console.log(dbQuestions);
+        // const parsed = JSON.parse(dbQuestions);
+        JSON.parse(dbQuestions)
+      )
+      .then(allQuestions => {
+        console.log(allQuestions);
+        console.log(allQuestions.categories);
+        console.log(allQuestions.questions);
+
+        const questionss = allQuestions.questions;
+        const categoriess = allQuestions.categories;
+
+        const newObj = {
+          questionss,
+          categoriess
+        };
+
+        console.log(newObj);
+
+        console.log(JSON.stringify(newObj));
+      });
+    // .then(objQuestions => console.log(objQuestions.quesiotns));
+    // // .then(allQuestionsJSON => setQuestion(allQuestionsJSON))
+    // .then(console.log('pobrane'));
+    // categoriesAndQuestions
   };
 
   useEffect(() => {
