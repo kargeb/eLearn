@@ -47,6 +47,7 @@ const QuestionsView = () => {
       .then(function() {
         console.log('Document written');
       })
+      .then(setChangesInDatabase(false))
       .catch(function(error) {
         console.error('Error adding document: ', error);
       });
@@ -56,8 +57,6 @@ const QuestionsView = () => {
     console.log('jestes w useEffect');
 
     getAllQuestionsFromServerAsString();
-
-    setChangesInDatabase(false);
 
     // return () => stopConnection();
   }, [changesInDatabase]);
@@ -70,11 +69,26 @@ const QuestionsView = () => {
     const allQuestions = [...questions, newQuestion];
     const allQuestionsStringyfied = JSON.stringify(allQuestions);
 
+    const tempCategories = categories;
+    const tempSources = sources;
+
+    const newDb = {
+      questions: allQuestions,
+      categories: tempCategories,
+      sources: tempSources
+    };
+    console.log('newDB: ');
+    console.log(newDb);
+
+    const newDbStringified = JSON.stringify(newDb);
+
+    console.log(newDbStringified);
+
     firebaseApp
       .collection('questionsString')
       .doc('1')
       .set({
-        all: allQuestionsStringyfied
+        categoriesAndQuestions: newDbStringified
       })
       .then(function() {
         console.log('Document written');
