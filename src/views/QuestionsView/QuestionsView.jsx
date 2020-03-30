@@ -20,6 +20,7 @@ const QuestionsView = () => {
   const [isFormVisible, setFormVisibility] = useState(false);
   const [questions, setQuestion] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [sources, setSources] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [changesInDatabase, setChangesInDatabase] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
@@ -38,8 +39,10 @@ const QuestionsView = () => {
       .then(doc => doc.data().categoriesAndQuestions)
       .then(dbQuestions => JSON.parse(dbQuestions))
       .then(allQuestions => {
+        console.log(allQuestions);
         setQuestion(allQuestions.questions);
         setCategories(allQuestions.categories);
+        setSources(allQuestions.sources);
       })
       .then(function() {
         console.log('Document written');
