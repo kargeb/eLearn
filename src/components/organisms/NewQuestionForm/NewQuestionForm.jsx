@@ -84,6 +84,7 @@ const StyledPrompt = styled.span`
 
 const NewQuestionForm = ({
   categories,
+  sources,
   editMode,
   setEditMode,
   toggleFormVisibility,
@@ -94,11 +95,8 @@ const NewQuestionForm = ({
   const [question, setQuestion] = useState(defaultQuestion.question);
   const [answer, setAnswer] = useState(defaultQuestion.answer);
   const [emptyFieldsPrompt, setEmptyFildsPrompt] = useState(false);
+  const [topics, setTopics] = useState([]);
 
-  console.log();
-
-  const topics = ['Funkcje', 'Tablice', 'Hooki', 'Komendy', 'Other'];
-  const sources = ['Samuraj', 'ModernJS', 'Roman', 'Doc', 'Other'];
   const separatedCategories = categories.map(item => item.name);
   console.log(separatedCategories);
 
@@ -107,6 +105,18 @@ const NewQuestionForm = ({
     separatedCategories,
     defaultQuestion.category
   );
+
+  useEffect(() => {
+    categories.forEach(mapCategory => {
+      if (mapCategory.name === category) {
+        setTopics([...mapCategory.topics]);
+      }
+    });
+  }, [category]);
+
+  console.log('topics:');
+  console.log(topics);
+
   const [topic, TopicDropdown, setTopic] = useDropdown(
     'Temat',
     topics,
@@ -170,7 +180,7 @@ const NewQuestionForm = ({
     }
   };
 
-  const handleCancel = () => {
+  const handleCanelButton = () => {
     toggleFormVisibility();
     setEditMode(false);
   };
@@ -217,7 +227,7 @@ const NewQuestionForm = ({
             </StyledAddButton>
           )}
           {/* {!editMode && ( */}
-          <StyledCancelButton onClick={handleCancel} type="button">
+          <StyledCancelButton onClick={handleCanelButton} type="button">
             Porzuć
             <Icon horizontalGap icon={cancelIcon} />
           </StyledCancelButton>
@@ -230,6 +240,24 @@ const NewQuestionForm = ({
 };
 
 NewQuestionForm.propTypes = {
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      category: PropTypes.string,
+      topics: PropTypes.arrayOf(PropTypes.string)
+    })
+  ).isRequired,
+  editMode: PropTypes.bool.isRequired,
+  setEditMode: PropTypes.func.isRequired,
+  defaultQuestion: PropTypes.shape({
+    question: PropTypes.string.isRequired,
+    answer: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    topic: PropTypes.string.isRequired,
+    source: PropTypes.string.isRequired,
+    id: PropTypes.number
+  }).isRequired,
+  editQuestion: PropTypes.func.isRequired,
+  sources: PropTypes.arrayOf(PropTypes.string).isRequired,
   toggleFormVisibility: PropTypes.func.isRequired,
   addNewQuestion: PropTypes.func.isRequired
 };
