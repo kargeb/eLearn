@@ -134,11 +134,26 @@ const QuestionsView = () => {
 
     const remainQuestionsStringyfied = JSON.stringify(remainQuestions);
 
+    const tempCategories = categories;
+    const tempSources = sources;
+
+    const newDb = {
+      questions: remainQuestions,
+      categories: tempCategories,
+      sources: tempSources
+    };
+    console.log('newDB: ');
+    console.log(newDb);
+
+    const newDbStringified = JSON.stringify(newDb);
+
+    console.log(newDbStringified);
+
     firebaseApp
       .collection('questionsString')
       .doc('1')
       .set({
-        all: remainQuestionsStringyfied
+        categoriesAndQuestions: newDbStringified
       })
       .then(function() {
         console.log('Document written');
@@ -147,6 +162,20 @@ const QuestionsView = () => {
       .catch(function(error) {
         console.error('Error adding document: ', error);
       });
+
+    // firebaseApp
+    //   .collection('questionsString')
+    //   .doc('1')
+    //   .set({
+    //     all: remainQuestionsStringyfied
+    //   })
+    //   .then(function() {
+    //     console.log('Document written');
+    //   })
+    //   .then(setChangesInDatabase(true))
+    //   .catch(function(error) {
+    //     console.error('Error adding document: ', error);
+    //   });
   };
 
   const turnOnEditMode = id => {
