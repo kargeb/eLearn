@@ -174,6 +174,7 @@ const QuestionsView = () => {
         {isFormVisible && (
           <NewQuestionForm
             categories={categories}
+            sources={sources}
             setEditMode={setEditMode}
             editMode={editMode}
             toggleFormVisibility={toggleFormVisibility}
