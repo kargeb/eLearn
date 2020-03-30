@@ -19,24 +19,37 @@ const StyledAddQuestionButton = styled.div`
 const QuestionsView = () => {
   const [isFormVisible, setFormVisibility] = useState(false);
   const [questions, setQuestion] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [sources, setSources] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [changesInDatabase, setChangesInDatabase] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
-  const categories = [
-    { name: 'JS', topics: ['Data types', 'Hooki', 'Tablice'] },
-    { name: 'HTML', topics: ['Browser', 'Komendy'] },
-    { name: 'GIT', topics: ['Gałęzie', 'Commends'] },
-    { name: 'React', topics: ['Tablice', 'Other'] }
-  ];
+  // const categories = [
+  //   { name: 'JS', topics: ['Data types', 'Hooki', 'Tablice'] },
+  //   { name: 'HTML', topics: ['Browser', 'Komendy'] },
+  //   { name: 'GIT', topics: ['Gałęzie', 'Commends'] },
+  //   { name: 'React', topics: ['Tablice', 'Other'] }
+  // ];
 
   const getAllQuestionsFromServerAsString = () => {
     firebaseApp
       .collection('questionsString')
       .doc('1')
       .get()
-      .then(doc => doc.data().all)
-      .then(allQuestions => JSON.parse(allQuestions))
-      .then(allQuestionsJSON => setQuestion(allQuestionsJSON));
+      .then(doc => doc.data().categoriesAndQuestions)
+      .then(dbQuestions => JSON.parse(dbQuestions))
+      .then(allQuestions => {
+        console.log(allQuestions);
+        setQuestion(allQuestions.questions);
+        setCategories(allQuestions.categories);
+        setSources(allQuestions.sources);
+      })
+      .then(function() {
+        console.log('Document written');
+      })
+      .catch(function(error) {
+        console.error('Error adding document: ', error);
+      });
   };
 
   useEffect(() => {
@@ -161,6 +174,7 @@ const QuestionsView = () => {
         {isFormVisible && (
           <NewQuestionForm
             categories={categories}
+            sources={sources}
             setEditMode={setEditMode}
             editMode={editMode}
             toggleFormVisibility={toggleFormVisibility}
