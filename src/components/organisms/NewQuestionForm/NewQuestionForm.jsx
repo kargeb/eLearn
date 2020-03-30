@@ -97,10 +97,6 @@ const NewQuestionForm = ({
   const [emptyFieldsPrompt, setEmptyFildsPrompt] = useState(false);
   const [topics, setTopics] = useState([]);
 
-  console.log();
-
-  // const topics = ['Funkcje', 'Tablice', 'Hooki', 'Komendy', 'Other'];
-  // const sources = ['Samuraj', 'ModernJS', 'Roman', 'Doc', 'Other'];
   const separatedCategories = categories.map(item => item.name);
   console.log(separatedCategories);
 
@@ -111,14 +107,8 @@ const NewQuestionForm = ({
   );
 
   useEffect(() => {
-    console.log('jestem w useEffect category');
-
-    categories.map(mapCategory => {
-      console.log('jestem w map');
-      console.log(`mapCategory: ${mapCategory.name}`);
-      console.log(`category: ${category}`);
-      console.log(`mapcategory == category ${mapCategory.name == category}`);
-      if (mapCategory.name == category) {
+    categories.forEach(mapCategory => {
+      if (mapCategory.name === category) {
         setTopics([...mapCategory.topics]);
       }
     });
@@ -250,6 +240,24 @@ const NewQuestionForm = ({
 };
 
 NewQuestionForm.propTypes = {
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      category: PropTypes.string,
+      topics: PropTypes.arrayOf(PropTypes.string)
+    })
+  ).isRequired,
+  editMode: PropTypes.bool.isRequired,
+  setEditMode: PropTypes.func.isRequired,
+  defaultQuestion: PropTypes.shape({
+    question: PropTypes.string.isRequired,
+    answer: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    topic: PropTypes.string.isRequired,
+    source: PropTypes.string.isRequired,
+    id: PropTypes.number
+  }).isRequired,
+  editQuestion: PropTypes.func.isRequired,
+  sources: PropTypes.arrayOf(PropTypes.string).isRequired,
   toggleFormVisibility: PropTypes.func.isRequired,
   addNewQuestion: PropTypes.func.isRequired
 };
