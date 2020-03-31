@@ -22,14 +22,7 @@ const QuestionsView = () => {
   const [categories, setCategories] = useState([]);
   const [sources, setSources] = useState([]);
   const [editMode, setEditMode] = useState(false);
-  const [changesInDatabase, setChangesInDatabase] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
-  // const categories = [
-  //   { name: 'JS', topics: ['Data types', 'Hooki', 'Tablice'] },
-  //   { name: 'HTML', topics: ['Browser', 'Komendy'] },
-  //   { name: 'GIT', topics: ['Gałęzie', 'Commends'] },
-  //   { name: 'React', topics: ['Tablice', 'Other'] }
-  // ];
 
   const getAllQuestionsFromServerAsString = () => {
     firebaseApp
@@ -45,58 +38,66 @@ const QuestionsView = () => {
         setSources(allQuestions.sources);
       })
       .then(function() {
-        console.log('Document written');
+        console.log('Document read');
       })
-      .then(setChangesInDatabase(false))
       .catch(function(error) {
         console.error('Error adding document: ', error);
       });
   };
-
-  useEffect(() => {
-    console.log('jestes w useEffect');
-
-    getAllQuestionsFromServerAsString();
-
-    // return () => stopConnection();
-  }, [changesInDatabase]);
 
   const toggleFormVisibility = () => {
     setFormVisibility(!isFormVisible);
   };
 
-  const addNewQuestion = newQuestion => {
-    const allQuestions = [...questions, newQuestion];
-    const allQuestionsStringyfied = JSON.stringify(allQuestions);
+  useEffect(() => {
+    console.log('jestes w useEffect getAllQuestionForFirstTime');
+    getAllQuestionsFromServerAsString();
+  }, []);
 
-    const tempCategories = categories;
-    const tempSources = sources;
+  const updateDatabase = newData => {
+    console.log('Old Questions:');
+    console.log(questions);
 
-    const newDb = {
-      questions: allQuestions,
-      categories: tempCategories,
-      sources: tempSources
-    };
-    console.log('newDB: ');
-    console.log(newDb);
-
-    const newDbStringified = JSON.stringify(newDb);
-
-    console.log(newDbStringified);
+    const docRef = firebaseApp.collection('questionsString').doc('1');
 
     firebaseApp
-      .collection('questionsString')
-      .doc('1')
-      .set({
-        categoriesAndQuestions: newDbStringified
+      .runTransaction(transaction => {
+        return transaction.get(docRef).then(doc => {
+          if (!doc.exists) {
+            throw 'Document does not exist!';
+          }
+
+          transaction.set(docRef, { categoriesAndQuestions: newData });
+          return newData;
+        });
       })
-      .then(function() {
+      .then(dbQuestions => JSON.parse(dbQuestions))
+      .then(dbQuestions => {
+        setQuestion(dbQuestions.questions);
+        setCategories(dbQuestions.categories);
+        setSources(dbQuestions.sources);
+        return dbQuestions;
+      })
+      .then(function(dbQuestions) {
         console.log('Document written');
+        console.log('New Questions:');
+        console.log(dbQuestions.questions);
       })
-      .then(setChangesInDatabase(true))
       .catch(function(error) {
         console.error('Error adding document: ', error);
       });
+  };
+
+  const addNewQuestion = newQuestion => {
+    const allQuestions = [...questions, newQuestion];
+    const newDb = {
+      questions: allQuestions,
+      categories,
+      sources
+    };
+    const newDbStringified = JSON.stringify(newDb);
+
+    updateDatabase(newDbStringified);
   };
 
   const editQuestion = editedQuestion => {
@@ -107,90 +108,27 @@ const QuestionsView = () => {
       }
       return question;
     });
-    console.log('newQuestions: ');
-    console.log(newQuestions);
-
-    const allQuestionsStringyfied = JSON.stringify(newQuestions);
-
-    const tempCategories = categories;
-    const tempSources = sources;
-
     const newDb = {
       questions: newQuestions,
-      categories: tempCategories,
-      sources: tempSources
+      categories,
+      sources
     };
-    console.log('newDB: ');
-    console.log(newDb);
-
     const newDbStringified = JSON.stringify(newDb);
 
-    console.log(newDbStringified);
-
-    firebaseApp
-      .collection('questionsString')
-      .doc('1')
-      .set({
-        categoriesAndQuestions: newDbStringified
-      })
-      .then(function() {
-        console.log('Document written');
-      })
-      .then(setChangesInDatabase(true))
-      .catch(function(error) {
-        console.error('Error adding document: ', error);
-      });
-
-    // firebaseApp
-    //   .collection('questionsString')
-    //   .doc('1')
-    //   .set({
-    //     all: allQuestionsStringyfied
-    //   })
-    //   .then(function() {
-    //     console.log('Document written');
-    //   })
-    //   .then(setChangesInDatabase(true))
-    //   .catch(function(error) {
-    //     console.error('Error adding document: ', error);
-    //   });
-
+    updateDatabase(newDbStringified);
     setEditMode(false);
   };
 
   const removeQuestion = id => {
     const remainQuestions = questions.filter(question => question.id !== id);
-
-    const remainQuestionsStringyfied = JSON.stringify(remainQuestions);
-
-    const tempCategories = categories;
-    const tempSources = sources;
-
     const newDb = {
       questions: remainQuestions,
-      categories: tempCategories,
-      sources: tempSources
+      categories,
+      sources
     };
-    console.log('newDB: ');
-    console.log(newDb);
-
     const newDbStringified = JSON.stringify(newDb);
 
-    console.log(newDbStringified);
-
-    firebaseApp
-      .collection('questionsString')
-      .doc('1')
-      .set({
-        categoriesAndQuestions: newDbStringified
-      })
-      .then(function() {
-        console.log('Document written');
-      })
-      .then(setChangesInDatabase(true))
-      .catch(function(error) {
-        console.error('Error adding document: ', error);
-      });
+    updateDatabase(newDbStringified);
   };
 
   const turnOnEditMode = id => {
@@ -216,7 +154,6 @@ const QuestionsView = () => {
   return (
     <div>
       <AppContext.Provider value={context}>
-        {console.log(questions)}
         <Link to="/">
           <Logo small />
         </Link>

@@ -98,7 +98,7 @@ const NewQuestionForm = ({
   const [topics, setTopics] = useState([]);
 
   const separatedCategories = categories.map(item => item.name);
-  console.log(separatedCategories);
+  // console.log(separatedCategories);
 
   const [category, CategoryDropdown, setCategory] = useDropdown(
     'Kategoria',
@@ -114,8 +114,8 @@ const NewQuestionForm = ({
     });
   }, [category]);
 
-  console.log('topics:');
-  console.log(topics);
+  // console.log('topics:');
+  // console.log(topics);
 
   const [topic, TopicDropdown, setTopic] = useDropdown(
     'Temat',
