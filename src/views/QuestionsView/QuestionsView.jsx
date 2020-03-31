@@ -84,19 +84,46 @@ const QuestionsView = () => {
 
     console.log(newDbStringified);
 
+    const docRef = firebaseApp.collection('questionsString').doc('1');
+
     firebaseApp
-      .collection('questionsString')
-      .doc('1')
-      .set({
-        categoriesAndQuestions: newDbStringified
+      .runTransaction(transaction => {
+        return transaction.get(docRef).then(doc => {
+          if (!doc.exists) {
+            throw 'Document does not exist!';
+          }
+
+          transaction.set(docRef, { categoriesAndQuestions: newDbStringified });
+          return newDbStringified;
+        });
+      })
+      .then(dbQuestions => JSON.parse(dbQuestions))
+      .then(dbQuestions => {
+        console.log(dbQuestions);
+        setQuestion(dbQuestions.questions);
+        setCategories(dbQuestions.categories);
+        setSources(dbQuestions.sources);
       })
       .then(function() {
         console.log('Document written');
       })
-      .then(setChangesInDatabase(true))
       .catch(function(error) {
         console.error('Error adding document: ', error);
       });
+
+    // firebaseApp
+    //   .collection('questionsString')
+    //   .doc('1')
+    //   .set({
+    //     categoriesAndQuestions: newDbStringified
+    //   })
+    //   .then(function() {
+    //     console.log('Document written');
+    //   })
+    //   .then(setChangesInDatabase(true))
+    //   .catch(function(error) {
+    //     console.error('Error adding document: ', error);
+    //   });
   };
 
   const editQuestion = editedQuestion => {
