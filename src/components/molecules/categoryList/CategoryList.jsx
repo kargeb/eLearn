@@ -37,12 +37,12 @@ const StyledNumber = styled.div`
 const StyledAccordion = styled.div`
   max-height: 0px;
   overflow: hidden;
-  transition: max-height 0.5s ease;
+  /* transition: max-height 0.5s ease; */
 
   ${({ open }) =>
     open &&
     css`
-      max-height: 1000px;
+      max-height: 100000px;
     `}
 `;
 

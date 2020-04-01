@@ -42,17 +42,18 @@ const StyledAccordion = styled.div`
   max-height: 0px;
   /* height: ${({ height }) => height}; */
   overflow: hidden;
-  transition: max-height 0.5s;
+  /* transition: max-height 0.5s; */
 
   ${({ open }) =>
     open &&
     css`
-      max-height: 1000px;
+      max-height: 100000px;
     `}
 `;
 
 const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
   const [open, setOpen] = useState([]);
+  // const [scrlHeight, setScrlHeight] = useState();
 
   // const content = useRef(null);
 
@@ -64,9 +65,12 @@ const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
     } else setOpen(prevState => [...prevState, currentElement]);
   };
 
-  // const getScrollHeight = scrollHeight => {
-  //   console.log(scrollHeight);
-  // };
+  const getScrollHeight = (currentTopic, scrollHeight) => {
+    console.log('from topic list:');
+    console.log(currentTopic);
+    console.log(scrollHeight);
+    // setScrlHeight(scrollHeight);
+  };
 
   return (
     <StyledContainer>
@@ -86,7 +90,7 @@ const TopicList = ({ questionsFilteredByCategory, categoryTopics }) => {
             <StyledAccordion open={open.includes(topic)}>
               <QuestionList
                 questionsToShow={questionsFilteredByTopic}
-                // getScrollHeight={getScrollHeight}
+                getScrollHeight={getScrollHeight}
               />
             </StyledAccordion>
             {/* </>
